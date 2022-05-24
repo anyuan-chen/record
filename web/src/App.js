@@ -1,8 +1,8 @@
+import Lander from "./pages/lander";
+
 function App() {
   return(
-    <div>
-      
-    </div>
+    <Lander></Lander>
   );
 }
 
