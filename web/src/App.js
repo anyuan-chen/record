@@ -1,8 +1,12 @@
-import Lander from "./pages/lander";
+import { BrowserRouter } from "react-router-dom";
+
+import AnimatedRouter from "./components/util/animatedRouter";
 
 function App() {
-  return(
-    <Lander></Lander>
+  return (
+    <BrowserRouter>
+      <AnimatedRouter></AnimatedRouter>
+    </BrowserRouter>
   );
 }
 

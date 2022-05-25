@@ -1,37 +1,69 @@
 import React from "react";
 import BaseLayout from "../components/layouts/baselayout";
 import "./lander.css";
+import { motion } from "framer-motion";
+const ButtonVariants = {
+  unhovered: {},
+  hovered: {
+    backgroundColor: "black",
+    color: "white",
+  },
+};
+const LogoVariants = {
+  unhovered: {},
+  hovered: {
+    filter:
+      "invert(100%) sepia(0%) saturate(4%) hue-rotate(178deg) brightness(102%) contrast(105%)",
+  },
+};
 const Lander = () => {
   return (
-    <div style={{ height: "100vh"}}>
+    <motion.div
+      style={{ height: "100vh" }}
+      initial={{ opacity: 0.3 }}
+      animate={{ opacity: 1 }}
+      exit={{ opacity: 0 }}
+      transition={{ duration: 1 }}
+    >
       <BaseLayout>
         <div className="lander__container">
-          <h1 className="h0">do you have...</h1>
+          <h1 className="h0 bold">do you have...</h1>
           <div className="lander__textlist">
-            <h2 className="h3 fade"> an unfortunate bubblegum pop addiction</h2>
-            <h2 className="h3 fade">
+            <h2 className="h4"> an serial bubblegum pop addiction?</h2>
+            <h2 className="h4">
               {" "}
-              playlists that share the same four chords
+              playlists that share the same four chords?
             </h2>
-            <h2 className="h3 fade">
+            <h2 className="h4">
               {" "}
-              lingering affection for the Warped Tour
+              an embarassing amount of affection for the Warped Tour?
             </h2>
           </div>
         </div>
         <div className="lander__cta">
           <div className="lander__ctagroup">
             <div className="lander__ctatextgroup">
-              <h3 className="h3">find out, if you please</h3>
-              <p className="h4 light">
+              <h3 className="h3">find out, if you please.</h3>
+              <p className="b1 fade">
                 don't worry, we won't change your
-                <br></br>precious playlists
+                <br></br>"precious" playlists 
               </p>
             </div>
-            <button className="lander__button">
-              <img src="/icons/spotify-fill.svg" alt="spotify logo"></img>
-              <p className="h5">login to spotify</p>
-            </button>
+            <motion.button
+              initial="unhovered"
+              whileHover="hovered"
+              animate="unhovered"
+              variants={ButtonVariants}
+              className="lander__button"
+            >
+              <motion.img
+                src="/icons/spotify-fill.svg"
+                alt="spotify logo"
+                variants={LogoVariants}
+                height="32px"
+              ></motion.img>
+              <p className="h4">login to spotify</p>
+            </motion.button>
           </div>
           <div className="lander__albums">
             <img
@@ -52,7 +84,7 @@ const Lander = () => {
           </div>
         </div>
       </BaseLayout>
-    </div>
+    </motion.div>
   );
 };
 export default Lander;
