@@ -3,6 +3,7 @@ import Lander from "../../pages/lander";
 import Dashboard from "../../pages/dashboard";
 import { AnimatePresence } from "framer-motion";
 import AboutYou from "../../pages/aboutyou";
+import Recommend from "../../pages/recommend";
 const AnimatedRouter = () => {
   const location = useLocation();
   return (
@@ -11,6 +12,7 @@ const AnimatedRouter = () => {
         <Route path="/" element={<Lander></Lander>}></Route>
         <Route path="/dashboard" element={<Dashboard></Dashboard>}></Route>
         <Route path="/aboutyou" element={<AboutYou></AboutYou>}></Route>
+        <Route path="/recommend" element={<Recommend></Recommend>}></Route>
       </Routes>
     </AnimatePresence>
   );

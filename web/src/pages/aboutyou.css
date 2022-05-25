@@ -41,3 +41,20 @@
     border: 1px solid black;
     cursor: pointer;
 }
+.aboutyou__verticalsection {
+    display: flex;
+    flex-direction: column;
+    row-gap: 4rem;
+}
+.aboutyou__imagearray {
+    display: flex;
+    flex-wrap: nowrap;
+    column-gap: 1rem;
+    height: 30%;
+    overflow: hidden;
+    width: 80%;
+}
+.aboutyou__imagearray  > img{
+    object-fit: cover;
+
+}
