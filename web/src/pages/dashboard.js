@@ -20,7 +20,7 @@ const Dashboard = () => {
             alt="your music photos"
             label="about you"
             caption="either going to boost or destroy your ego"
-            href="/about"
+            href="/aboutyou"
           ></DashboardElement>
           <DashboardElement
             src="https://wallpaperaccess.com/full/3547007.jpg"
