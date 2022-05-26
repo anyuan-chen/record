@@ -6,7 +6,7 @@ type HttpService interface {
 	TopArtists(w http.ResponseWriter, r *http.Request)
 	TopSongs(w http.ResponseWriter, r *http.Request)
 	TopGenres(w http.ResponseWriter, r *http.Request)
-	
+
 	SongCollage(w http.ResponseWriter, r *http.Request)
 	ArtistCollage(w http.ResponseWriter, r *http.Request)
 
