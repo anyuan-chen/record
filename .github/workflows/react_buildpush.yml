@@ -29,5 +29,5 @@ jobs:
       with:
         context: ./web/
         push: true
-        tags: user/app:latest
+        tags: anyuan-chen/record:react-latest
   
