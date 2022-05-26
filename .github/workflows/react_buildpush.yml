@@ -29,5 +29,5 @@ jobs:
       with:
         context: ./web/
         push: true
-        tags: anyuan-chen/record:react-latest
+        tags: ${{ secrets.DOCKERHUB_USERNAME }}/${{ github.event.repository.name }}:react-latest
   
