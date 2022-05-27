@@ -4,11 +4,11 @@ import (
 	"crypto/rand"
 	"encoding/base64"
 	"encoding/json"
+	"fmt"
 	"net/http"
 	"os"
 	"time"
 
-	"github.com/zmb3/spotify/v2"
 	spotifyauth "github.com/zmb3/spotify/v2/auth"
 )
 
@@ -41,7 +41,9 @@ func (s *HttpService) SpotifyCallback(w http.ResponseWriter, r *http.Request){
 	if err != nil {
 		http.Error(w, "Failed to Retrieve Token", http.StatusInternalServerError)
 	}
-	//need to save this token somewhere 
+	fmt.Print(token)
+	//need to save this token somewhere  and process it
 	
 	//client := spotify.New(auth.Client(r.Context(), token))
+	http.Redirect(w, r, os.Getenv("FRONTEND_URL") + "/dashboard", http.StatusPermanentRedirect)
 }
