@@ -1,0 +1,50 @@
+# This is a basic workflow to help you get started with Actions
+name: api_ci
+
+# Controls when the workflow will run
+on:
+  push:
+    branches: [main]
+    paths:
+      - api/**
+  pull_request:
+    branches: [main]
+    paths:
+      - api/**
+
+# A workflow run is made up of one or more jobs that can run sequentially or in parallel
+jobs:
+  # This workflow contains a single job called "build"
+  build-and-test:
+    # The type of runner that the job will run on
+    runs-on: ubuntu-latest
+    environment: production
+    env:
+
+    # Steps represent a sequence of tasks that will be executed as part of the job
+    steps:
+      - name: Install Go
+        uses: actions/setup-go@v3
+        with:
+          go-version: "1.18.0" # The Go version to download (if necessary) and use.
+
+      - name: Checkout Code
+        uses: actions/checkout@v3
+
+      - name: Fetch required Go modules
+        working-directory: ./api
+        run: go mod download
+
+      - name: Build
+        working-directory: ./api
+        run: go build -v ./...
+
+      - name: Build and push
+        uses: docker/build-push-action@v3
+        with:
+          context: ./api/
+          push: false
+          tags: ${{ secrets.DOCKERHUB_USERNAME }}/${{ github.event.repository.name }}:api-latest
+      - name: Run functional tests
+        working-directory: ./api
+        run: go test -v ./...
