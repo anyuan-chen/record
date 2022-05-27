@@ -61,7 +61,6 @@ const InfoBlurb = ({ children, message, scrollto, passRef }) => {
             variants={iconVariants}
           ></motion.img>
         </motion.button>
-
         {children}
       </motion.div>
     </motion.div>
