@@ -1,9 +1,9 @@
-package http
-
-import "github.com/anyuan-chen/record/api/pkg/api/models"
+package api
 
 type HttpService struct {
-	httpService models.HttpService
+}
+func NewService() HttpService{
+	return HttpService{}
 }
 // type HttpService interface {
 // 	TopArtists(w http.ResponseWriter, r *http.Request)

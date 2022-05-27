@@ -1,4 +1,4 @@
-package http
+package api
 
 import (
 	"crypto/rand"
@@ -12,7 +12,7 @@ import (
 	spotifyauth "github.com/zmb3/spotify/v2/auth"
 )
 
-var auth = spotifyauth.New(spotifyauth.WithRedirectURL(os.Getenv("redirectURL")), spotifyauth.WithScopes(spotifyauth.ScopeUserReadPrivate))
+var auth = spotifyauth.New(spotifyauth.WithRedirectURL(os.Getenv("REDIRECT_URL")), spotifyauth.WithScopes(spotifyauth.ScopeUserReadPrivate))
 
 
 func (s *HttpService) SpotifyLogin(w http.ResponseWriter, r *http.Request){
@@ -42,8 +42,7 @@ func (s *HttpService) SpotifyCallback(w http.ResponseWriter, r *http.Request){
 		http.Error(w, "Failed to Retrieve Token", http.StatusInternalServerError)
 	}
 	fmt.Print(token)
-	//need to save this token somewhere  and process it
-	
+	//need to save this token somewhere  and process it (probably like grpc save token)
 	//client := spotify.New(auth.Client(r.Context(), token))
 	http.Redirect(w, r, os.Getenv("FRONTEND_URL") + "/dashboard", http.StatusPermanentRedirect)
 }
