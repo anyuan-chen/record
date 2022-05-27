@@ -3,8 +3,12 @@ name: react_buildpush
 on:
   push:
     branches: [ main ]
+    paths:
+      - web/**
   pull_request:
     branches: [ main ]
+    paths: 
+      - web/**
 
 jobs:
 
