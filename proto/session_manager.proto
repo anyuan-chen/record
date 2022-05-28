@@ -1,0 +1,17 @@
+syntax = "proto3";
+package proto;
+
+option go_package = "github.com/anyuan-chen/record/proto/pkg/session_manager_pb";
+
+message Token {
+    bytes token = 1;
+}
+message Validity{
+    bool validity = 1;
+}
+message SessionID {
+    string code = 1;
+}
+service SessionManager {
+    rpc CreateSession(Token) returns (SessionID);
+}
