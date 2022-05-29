@@ -2,13 +2,16 @@ package session_manager_test
 
 import (
 	"context"
+	"encoding/json"
 	"log"
 	"net"
 	"testing"
 
 	"github.com/anyuan-chen/record/proto/pkg/session_manager_pb"
 	session_manager "github.com/anyuan-chen/record/session_manager/pkg"
+	"github.com/google/uuid"
 	"github.com/stretchr/testify/assert"
+	"golang.org/x/oauth2"
 	"google.golang.org/grpc"
 	"google.golang.org/grpc/credentials/insecure"
 	"google.golang.org/grpc/test/bufconn"
@@ -39,12 +42,17 @@ func TestClientCreateRetrieveConnection(t *testing.T) {
 	}
 	defer session_manager.Close()
 	Manager := session_manager_pb.NewSessionManagerClient(session_manager)
-	sampleToken := &session_manager_pb.Token{Token: []byte("hi")}
+	sampleToken_value, _ := json.Marshal(oauth2.Token{})
+	sampleToken := &session_manager_pb.Token{Token: sampleToken_value}
 	id, err := Manager.CreateSession(context.Background(), sampleToken)
 	assert.Nil(t, err)
 	token, err := Manager.GetSession(context.Background(), &session_manager_pb.SessionID{Code: id.Code})
 	assert.Nil(t, err)
-	assert.Equal(t, token.Token, sampleToken.Token)
+
+	var retrieved_token oauth2.Token
+	json.Unmarshal(token.Token, &retrieved_token)
+
+	assert.Equal(t, oauth2.Token{}, retrieved_token)
 
 	unknown_token, err := Manager.GetSession(context.Background(), &session_manager_pb.SessionID{Code: "not_in"})
 	assert.Nil(t, unknown_token)
@@ -60,7 +68,7 @@ func TestCreateRetrieveSession(t *testing.T){
 	token, err := Manager.GetSession(context.Background(), &session_manager_pb.SessionID{Code: id.Code})
 	assert.Nil(t, err)
 	assert.Equal(t, token, sampleToken)
-	unknown_token, err := Manager.GetSession(context.Background(), &session_manager_pb.SessionID{Code: "not_in"})
+	unknown_token, err := Manager.GetSession(context.Background(), &session_manager_pb.SessionID{Code: uuid.New().String()})
 	assert.Nil(t, unknown_token)
 	assert.NotNil(t, err)
 }

@@ -18,9 +18,9 @@ func main(){
 		log.Fatalf("failed to listen: %v", err)
 	}
 	grpcServer := grpc.NewServer()
-	session_manager_pb.RegisterSessionManagerServer(grpcServer, &session_manager.Session_manager_server{})
+	session_table := make(map[string]*session_manager_pb.Token)
+	session_manager_pb.RegisterSessionManagerServer(grpcServer, &session_manager.Session_manager_server{Session_table: session_table})
 	reflection.Register(grpcServer)
-
 	if err:= grpcServer.Serve(lis); err != nil {
 		log.Fatalf("fail %v", err);
 	}

@@ -29,7 +29,7 @@ func (s *Session_manager_server) CreateSession(ctx context.Context, token *sessi
 }
 func (s *Session_manager_server) GetSession(ctx context.Context, session_id *session_manager_pb.SessionID) (*session_manager_pb.Token, error){
 	token := s.Session_table[session_id.Code]
-	if (token != &session_manager_pb.Token{}){
+	if (token != nil){
 		return token, nil;
 	}
 	return nil, errors.New("no token associated with this id");
