@@ -26,7 +26,9 @@ func (s *Session_manager_server) CreateSession(ctx context.Context, token *sessi
 	s.session_table[uid] = token;
 	return &session_manager_pb.SessionID{Code: uid}, nil;
 }
-
+func (s *Session_manager_server) GetSession (ctx context.Context, session_id *session_manager_pb.SessionID) (*session_manager_pb.Token, error){
+	//session_id.Code
+}
 
 // protoc -I=. --go_out=../core_logic/pkg/session_manager/pb --go_opt=paths=source_relative \
 // --go-grpc_out=../core_logic/pkg/session_manager/pb --go-grpc_opt=paths=source_relative \
