@@ -5,14 +5,12 @@ import (
 	"crypto/rand"
 	"encoding/base64"
 	"encoding/json"
-	"fmt"
 	"net/http"
 	"os"
 	"time"
 
 	"github.com/anyuan-chen/record/proto/pkg/session_manager_pb"
 	spotifyauth "github.com/zmb3/spotify/v2/auth"
-	"golang.org/x/oauth2"
 )
 
 var auth = spotifyauth.New(spotifyauth.WithRedirectURL(os.Getenv("REDIRECT_URL")), spotifyauth.WithScopes(spotifyauth.ScopeUserReadPrivate))
@@ -45,12 +43,7 @@ func (s *HttpService) SpotifyCallback(w http.ResponseWriter, r *http.Request){
 		http.Error(w, "Failed to Retrieve Token", http.StatusInternalServerError)
 	}
 	
-	//need to save this token somewhere  and process it (probably like grpc save token)
-	//client := spotify.New(auth.Client(r.Context(), token))
 	token_json, err := json.Marshal(token)
-	var token_two oauth2.Token
-	json.Unmarshal(token_json, &token_two)
-	fmt.Print(token == &token_two)
 	if err != nil {
 		http.Error(w, "Error encoding JSON token", http.StatusInternalServerError)
 	}

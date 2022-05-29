@@ -5,7 +5,7 @@ import (
 	"net"
 
 	"github.com/anyuan-chen/record/proto/pkg/session_manager_pb"
-	session_manager "github.com/anyuan-chen/record/session_manager/pkg"
+	session_manager "github.com/anyuan-chen/record/session_manager/pkg/session_manager"
 
 	"google.golang.org/grpc"
 	"google.golang.org/grpc/reflection"

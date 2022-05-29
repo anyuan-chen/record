@@ -8,7 +8,7 @@ import (
 	"testing"
 
 	"github.com/anyuan-chen/record/proto/pkg/session_manager_pb"
-	session_manager "github.com/anyuan-chen/record/session_manager/pkg"
+	session_manager "github.com/anyuan-chen/record/session_manager/pkg/session_manager"
 	"github.com/google/uuid"
 	"github.com/stretchr/testify/assert"
 	"golang.org/x/oauth2"
