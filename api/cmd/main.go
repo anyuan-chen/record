@@ -11,13 +11,13 @@ import (
 	"google.golang.org/grpc/credentials/insecure"
 )
 func main(){
-	service := api.NewService()
 	session_manager, err := grpc.Dial("localhost:7070", grpc.WithTransportCredentials(insecure.NewCredentials()))
 	if (err != nil){
 		log.Fatal(err)
 	}
 	client := session_manager_pb.NewSessionManagerClient(session_manager)
 	fmt.Print(client)
+	service := api.NewService(client)
 	http.HandleFunc("/login", service.SpotifyLogin)
 	http.HandleFunc("/callback", service.SpotifyCallback)
 	http.ListenAndServe(":8080", nil)
