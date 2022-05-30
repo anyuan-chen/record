@@ -28,6 +28,8 @@ type CoreManagerClient interface {
 	GetRecommendedSongs(ctx context.Context, in *NumberWithToken, opts ...grpc.CallOption) (*JSONResponse, error)
 	MakeRecommendedPlaylist(ctx context.Context, in *Token, opts ...grpc.CallOption) (*Empty, error)
 	GetPopularityScore(ctx context.Context, in *Token, opts ...grpc.CallOption) (*FloatScore, error)
+	GetTopArtistsCollage(ctx context.Context, in *Token, opts ...grpc.CallOption) (*Image, error)
+	GetTopAlbumsCollage(ctx context.Context, in *Token, opts ...grpc.CallOption) (*Image, error)
 }
 
 type coreManagerClient struct {
@@ -92,6 +94,24 @@ func (c *coreManagerClient) GetPopularityScore(ctx context.Context, in *Token, o
 	return out, nil
 }
 
+func (c *coreManagerClient) GetTopArtistsCollage(ctx context.Context, in *Token, opts ...grpc.CallOption) (*Image, error) {
+	out := new(Image)
+	err := c.cc.Invoke(ctx, "/proto.CoreManager/GetTopArtistsCollage", in, out, opts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
+func (c *coreManagerClient) GetTopAlbumsCollage(ctx context.Context, in *Token, opts ...grpc.CallOption) (*Image, error) {
+	out := new(Image)
+	err := c.cc.Invoke(ctx, "/proto.CoreManager/GetTopAlbumsCollage", in, out, opts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
 // CoreManagerServer is the server API for CoreManager service.
 // All implementations must embed UnimplementedCoreManagerServer
 // for forward compatibility
@@ -102,6 +122,8 @@ type CoreManagerServer interface {
 	GetRecommendedSongs(context.Context, *NumberWithToken) (*JSONResponse, error)
 	MakeRecommendedPlaylist(context.Context, *Token) (*Empty, error)
 	GetPopularityScore(context.Context, *Token) (*FloatScore, error)
+	GetTopArtistsCollage(context.Context, *Token) (*Image, error)
+	GetTopAlbumsCollage(context.Context, *Token) (*Image, error)
 	mustEmbedUnimplementedCoreManagerServer()
 }
 
@@ -126,6 +148,12 @@ func (UnimplementedCoreManagerServer) MakeRecommendedPlaylist(context.Context, *
 }
 func (UnimplementedCoreManagerServer) GetPopularityScore(context.Context, *Token) (*FloatScore, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method GetPopularityScore not implemented")
+}
+func (UnimplementedCoreManagerServer) GetTopArtistsCollage(context.Context, *Token) (*Image, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method GetTopArtistsCollage not implemented")
+}
+func (UnimplementedCoreManagerServer) GetTopAlbumsCollage(context.Context, *Token) (*Image, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method GetTopAlbumsCollage not implemented")
 }
 func (UnimplementedCoreManagerServer) mustEmbedUnimplementedCoreManagerServer() {}
 
@@ -248,6 +276,42 @@ func _CoreManager_GetPopularityScore_Handler(srv interface{}, ctx context.Contex
 	return interceptor(ctx, in, info, handler)
 }
 
+func _CoreManager_GetTopArtistsCollage_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(Token)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(CoreManagerServer).GetTopArtistsCollage(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: "/proto.CoreManager/GetTopArtistsCollage",
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(CoreManagerServer).GetTopArtistsCollage(ctx, req.(*Token))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
+func _CoreManager_GetTopAlbumsCollage_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(Token)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(CoreManagerServer).GetTopAlbumsCollage(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: "/proto.CoreManager/GetTopAlbumsCollage",
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(CoreManagerServer).GetTopAlbumsCollage(ctx, req.(*Token))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
 // CoreManager_ServiceDesc is the grpc.ServiceDesc for CoreManager service.
 // It's only intended for direct use with grpc.RegisterService,
 // and not to be introspected or modified (even as a copy)
@@ -278,6 +342,14 @@ var CoreManager_ServiceDesc = grpc.ServiceDesc{
 		{
 			MethodName: "GetPopularityScore",
 			Handler:    _CoreManager_GetPopularityScore_Handler,
+		},
+		{
+			MethodName: "GetTopArtistsCollage",
+			Handler:    _CoreManager_GetTopArtistsCollage_Handler,
+		},
+		{
+			MethodName: "GetTopAlbumsCollage",
+			Handler:    _CoreManager_GetTopAlbumsCollage_Handler,
 		},
 	},
 	Streams:  []grpc.StreamDesc{},
