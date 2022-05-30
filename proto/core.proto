@@ -16,10 +16,16 @@ message NumberWithToken {
 message JSONResponse {
     bytes data = 1;
 }
+message Empty {
+
+}
 service CoreManager {
     rpc GetTopArtists(NumberWithToken) returns (JSONResponse){}
 	rpc GetTopSongs(NumberWithToken) returns (JSONResponse){}
 	rpc GetTopGenres(Token) returns (JSONResponse){}
+
+    rpc GetRecommendedSongs(NumberWithToken) returns (JSONResponse){}
+    rpc MakeRecommendedPlaylist(Token) returns(Empty){}
 }
 
 // protoc -I=. --go_out=./pkg/core_pb --go_opt=paths=source_relative \
