@@ -18,7 +18,7 @@ type Core interface {
 	GetRecommendations(token oauth2.Token) ([]byte, error)
 	MakeRecommendationsPlaylist(token oauth2.Token) error
 
-	// GetPopularityScore(token oauth2.Token) (float64, error)
+	GetPopularityScore(token oauth2.Token) (float64, error)
 }
 type CoreService struct {
 	Authenticator *spotifyauth.Authenticator

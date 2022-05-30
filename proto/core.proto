@@ -19,6 +19,9 @@ message JSONResponse {
 message Empty {
 
 }
+message FloatScore {
+    double score = 1;
+}
 service CoreManager {
     rpc GetTopArtists(NumberWithToken) returns (JSONResponse){}
 	rpc GetTopSongs(NumberWithToken) returns (JSONResponse){}
@@ -26,6 +29,7 @@ service CoreManager {
 
     rpc GetRecommendedSongs(NumberWithToken) returns (JSONResponse){}
     rpc MakeRecommendedPlaylist(Token) returns(Empty){}
+    rpc GetPopularityScore(Token) returns (FloatScore){}
 }
 
 // protoc -I=. --go_out=./pkg/core_pb --go_opt=paths=source_relative \

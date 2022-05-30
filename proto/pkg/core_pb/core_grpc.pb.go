@@ -27,6 +27,7 @@ type CoreManagerClient interface {
 	GetTopGenres(ctx context.Context, in *Token, opts ...grpc.CallOption) (*JSONResponse, error)
 	GetRecommendedSongs(ctx context.Context, in *NumberWithToken, opts ...grpc.CallOption) (*JSONResponse, error)
 	MakeRecommendedPlaylist(ctx context.Context, in *Token, opts ...grpc.CallOption) (*Empty, error)
+	GetPopularityScore(ctx context.Context, in *Token, opts ...grpc.CallOption) (*FloatScore, error)
 }
 
 type coreManagerClient struct {
@@ -82,6 +83,15 @@ func (c *coreManagerClient) MakeRecommendedPlaylist(ctx context.Context, in *Tok
 	return out, nil
 }
 
+func (c *coreManagerClient) GetPopularityScore(ctx context.Context, in *Token, opts ...grpc.CallOption) (*FloatScore, error) {
+	out := new(FloatScore)
+	err := c.cc.Invoke(ctx, "/proto.CoreManager/GetPopularityScore", in, out, opts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
 // CoreManagerServer is the server API for CoreManager service.
 // All implementations must embed UnimplementedCoreManagerServer
 // for forward compatibility
@@ -91,6 +101,7 @@ type CoreManagerServer interface {
 	GetTopGenres(context.Context, *Token) (*JSONResponse, error)
 	GetRecommendedSongs(context.Context, *NumberWithToken) (*JSONResponse, error)
 	MakeRecommendedPlaylist(context.Context, *Token) (*Empty, error)
+	GetPopularityScore(context.Context, *Token) (*FloatScore, error)
 	mustEmbedUnimplementedCoreManagerServer()
 }
 
@@ -112,6 +123,9 @@ func (UnimplementedCoreManagerServer) GetRecommendedSongs(context.Context, *Numb
 }
 func (UnimplementedCoreManagerServer) MakeRecommendedPlaylist(context.Context, *Token) (*Empty, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method MakeRecommendedPlaylist not implemented")
+}
+func (UnimplementedCoreManagerServer) GetPopularityScore(context.Context, *Token) (*FloatScore, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method GetPopularityScore not implemented")
 }
 func (UnimplementedCoreManagerServer) mustEmbedUnimplementedCoreManagerServer() {}
 
@@ -216,6 +230,24 @@ func _CoreManager_MakeRecommendedPlaylist_Handler(srv interface{}, ctx context.C
 	return interceptor(ctx, in, info, handler)
 }
 
+func _CoreManager_GetPopularityScore_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(Token)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(CoreManagerServer).GetPopularityScore(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: "/proto.CoreManager/GetPopularityScore",
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(CoreManagerServer).GetPopularityScore(ctx, req.(*Token))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
 // CoreManager_ServiceDesc is the grpc.ServiceDesc for CoreManager service.
 // It's only intended for direct use with grpc.RegisterService,
 // and not to be introspected or modified (even as a copy)
@@ -242,6 +274,10 @@ var CoreManager_ServiceDesc = grpc.ServiceDesc{
 		{
 			MethodName: "MakeRecommendedPlaylist",
 			Handler:    _CoreManager_MakeRecommendedPlaylist_Handler,
+		},
+		{
+			MethodName: "GetPopularityScore",
+			Handler:    _CoreManager_GetPopularityScore_Handler,
 		},
 	},
 	Streams:  []grpc.StreamDesc{},
