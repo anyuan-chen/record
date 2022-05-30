@@ -1,0 +1,16 @@
+syntax = "proto3";
+package proto;
+
+message Images {
+    bytes images = 1;
+}
+message Image {
+    bytes image = 1;
+}
+service ImageProcessor {
+    rpc GetArtistCollage (Images) returns (Image);
+    rpc GetAlbumsCollage (Images) returns (Image);
+}
+
+// python3 -m grpc_tools.protoc -I=. --python_out=./pkg/image_processing_pb \
+// --grpc_python_out=./pkg/image_processing_pb image_processing.proto
