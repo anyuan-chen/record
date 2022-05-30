@@ -11,7 +11,7 @@ import (
 	"google.golang.org/grpc"
 )
 
-func main(){
+func main() {
 	lis, err := net.Listen("tcp", "6060")
 	if err != nil {
 		log.Fatalf("failed to listen: %v", err)
@@ -22,6 +22,6 @@ func main(){
 	service := core.CoreService{Authenticator: auth}
 	core_pb.RegisterCoreManagerServer(grpcServer, &service)
 	if err := grpcServer.Serve(lis); err != nil {
-		log.Fatalf("fail %v", err);
+		log.Fatalf("fail %v", err)
 	}
 }

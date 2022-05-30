@@ -15,8 +15,8 @@ type Core interface {
 	// GetTopArtistsCollage(token oauth2.Token) (image.Image, error)
 	// GetTopAlbumsCollage(token oauth2.Token) (image.Image, error)
 
-	// GetRecommendations(token oauth2.Token) ([]byte, error)
-	// MakeRecommendationsPlaylist(token oauth2.Token) error
+	GetRecommendations(token oauth2.Token) ([]byte, error)
+	MakeRecommendationsPlaylist(token oauth2.Token) error
 
 	// GetPopularityScore(token oauth2.Token) (float64, error)
 }
