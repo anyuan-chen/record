@@ -14,13 +14,8 @@ class ImageProcessorStub(object):
         Args:
             channel: A grpc.Channel.
         """
-        self.GetArtistCollage = channel.unary_unary(
-                '/proto.ImageProcessor/GetArtistCollage',
-                request_serializer=image__processing__pb2.Images.SerializeToString,
-                response_deserializer=image__processing__pb2.Image.FromString,
-                )
-        self.GetAlbumsCollage = channel.unary_unary(
-                '/proto.ImageProcessor/GetAlbumsCollage',
+        self.GetCollage = channel.unary_unary(
+                '/proto.ImageProcessor/GetCollage',
                 request_serializer=image__processing__pb2.Images.SerializeToString,
                 response_deserializer=image__processing__pb2.Image.FromString,
                 )
@@ -29,13 +24,7 @@ class ImageProcessorStub(object):
 class ImageProcessorServicer(object):
     """Missing associated documentation comment in .proto file."""
 
-    def GetArtistCollage(self, request, context):
-        """Missing associated documentation comment in .proto file."""
-        context.set_code(grpc.StatusCode.UNIMPLEMENTED)
-        context.set_details('Method not implemented!')
-        raise NotImplementedError('Method not implemented!')
-
-    def GetAlbumsCollage(self, request, context):
+    def GetCollage(self, request, context):
         """Missing associated documentation comment in .proto file."""
         context.set_code(grpc.StatusCode.UNIMPLEMENTED)
         context.set_details('Method not implemented!')
@@ -44,13 +33,8 @@ class ImageProcessorServicer(object):
 
 def add_ImageProcessorServicer_to_server(servicer, server):
     rpc_method_handlers = {
-            'GetArtistCollage': grpc.unary_unary_rpc_method_handler(
-                    servicer.GetArtistCollage,
-                    request_deserializer=image__processing__pb2.Images.FromString,
-                    response_serializer=image__processing__pb2.Image.SerializeToString,
-            ),
-            'GetAlbumsCollage': grpc.unary_unary_rpc_method_handler(
-                    servicer.GetAlbumsCollage,
+            'GetCollage': grpc.unary_unary_rpc_method_handler(
+                    servicer.GetCollage,
                     request_deserializer=image__processing__pb2.Images.FromString,
                     response_serializer=image__processing__pb2.Image.SerializeToString,
             ),
@@ -65,7 +49,7 @@ class ImageProcessor(object):
     """Missing associated documentation comment in .proto file."""
 
     @staticmethod
-    def GetArtistCollage(request,
+    def GetCollage(request,
             target,
             options=(),
             channel_credentials=None,
@@ -75,24 +59,7 @@ class ImageProcessor(object):
             wait_for_ready=None,
             timeout=None,
             metadata=None):
-        return grpc.experimental.unary_unary(request, target, '/proto.ImageProcessor/GetArtistCollage',
-            image__processing__pb2.Images.SerializeToString,
-            image__processing__pb2.Image.FromString,
-            options, channel_credentials,
-            insecure, call_credentials, compression, wait_for_ready, timeout, metadata)
-
-    @staticmethod
-    def GetAlbumsCollage(request,
-            target,
-            options=(),
-            channel_credentials=None,
-            call_credentials=None,
-            insecure=False,
-            compression=None,
-            wait_for_ready=None,
-            timeout=None,
-            metadata=None):
-        return grpc.experimental.unary_unary(request, target, '/proto.ImageProcessor/GetAlbumsCollage',
+        return grpc.experimental.unary_unary(request, target, '/proto.ImageProcessor/GetCollage',
             image__processing__pb2.Images.SerializeToString,
             image__processing__pb2.Image.FromString,
             options, channel_credentials,

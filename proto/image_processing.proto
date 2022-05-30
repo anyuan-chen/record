@@ -2,14 +2,19 @@ syntax = "proto3";
 package proto;
 
 message Images {
-    bytes images = 1;
+    repeated ImageURL images = 1;
+    int64 rowCount = 2;
+    int64 colCount = 3;
+    int64 targetSize = 4;
+}
+message ImageURL {
+    string imageURL = 1;
 }
 message Image {
     bytes image = 1;
 }
 service ImageProcessor {
-    rpc GetArtistCollage (Images) returns (Image);
-    rpc GetAlbumsCollage (Images) returns (Image);
+    rpc GetCollage (Images) returns (Image);
 }
 
 // python3 -m grpc_tools.protoc -I=. --python_out=./pkg/image_processing_pb \
