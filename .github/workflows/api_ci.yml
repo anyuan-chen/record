@@ -41,7 +41,7 @@ jobs:
         uses: docker/build-push-action@v3
         with:
           context: .
-          dockerfile: ./api/Dockerfile
+          file: ./api/Dockerfile
           push: false
           tags: ${{ secrets.DOCKERHUB_USERNAME }}/${{ github.event.repository.name }}:api-latest
       - name: Run functional tests
