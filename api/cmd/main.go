@@ -9,9 +9,10 @@ import (
 	"google.golang.org/grpc"
 	"google.golang.org/grpc/credentials/insecure"
 )
-func main(){
+
+func main() {
 	session_manager, err := grpc.Dial("localhost:7070", grpc.WithTransportCredentials(insecure.NewCredentials()))
-	if (err != nil){
+	if err != nil {
 		log.Fatal(err)
 	}
 	client := session_manager_pb.NewSessionManagerClient(session_manager)

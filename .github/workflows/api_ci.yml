@@ -39,7 +39,7 @@ jobs:
       - name: Build and push
         uses: docker/build-push-action@v3
         with:
-          context: ./api/
+          context: .
           push: false
           tags: ${{ secrets.DOCKERHUB_USERNAME }}/${{ github.event.repository.name }}:api-latest
       - name: Run functional tests
