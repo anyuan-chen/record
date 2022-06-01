@@ -1,12 +1,10 @@
-import { BrowserRouter } from "react-router-dom";
-
-import AnimatedRouter from "./components/util/animatedRouter";
+import { Typography } from "@mui/material";
 
 function App() {
   return (
-    <BrowserRouter>
-      <AnimatedRouter></AnimatedRouter>
-    </BrowserRouter>
+    <Typography component="h1" variant="oversize">
+      hi{" "}
+    </Typography>
   );
 }
 
