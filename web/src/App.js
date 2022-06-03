@@ -11,6 +11,8 @@ import IconButton from "./components/buttons/icon_button";
 import { ButtonUnstyled } from "@mui/base";
 import MenuCard from "./components/menu_card/menu_card";
 import SearchCard from "./components/search_card/search_card";
+import Cta from "./components/cta/cta";
+import { Typography } from "@mui/material";
 function App() {
   return (
     <Box
@@ -33,9 +35,7 @@ function App() {
           justifyContent: "center",
         }}
       >
-      <TrackCard src="./sample_album.png" title="oceanblock" desc="fun">
-
-      </TrackCard>
+        
       </Box>
     </Box>
   );
