@@ -1,46 +1,51 @@
 import { Typography } from "@mui/material";
 import { Box } from "@mui/system";
 import theme from "../../styles/theme";
+import { motion } from "framer-motion";
 
-const MenuCard = ({ src, title, desc, sx }) => {
+const MenuCard = ({ src, title, desc, sx, href }) => {
   return (
-    <Box
-      sx={{
-        background: theme.palette.bgSecondary.main,
-        width: "100%",
-        padding: theme.spacing(4),
-        borderRadius: theme.spacing(4),
-        display: "flex",
-        flexDirection: "column",
-        rowGap: theme.spacing(2),
-        ...sx,
-      }}
-    >
-      <img
-        src={src}
-        alt="menu_item_caption"
-        style={{ width: "100%", height: "75%", objectFit: "cover" }}
-      ></img>
+    <motion.a href={href}>
       <Box
         sx={{
-          height: "30%",
+          background: theme.palette.bgSecondary.main,
+          padding: theme.spacing(4),
+          borderRadius: theme.spacing(4),
           display: "flex",
           flexDirection: "column",
-          justifyContent: "space-evenly"
+          rowGap: theme.spacing(2),
+          cursor: "pointer",
+          ...sx,
         }}
+        component={motion.div}
+        whileHover={{ backgroundColor: theme.palette.bgSecondary.darker }}
       >
-        <Typography
-          variant="h3"
-          component="h2"
-          sx={{ color: "white", fontWeight: "bold" }}
+        <img
+          src={src}
+          alt="menu_item_caption"
+          style={{ width: "100%", height: "75%", objectFit: "cover" }}
+        ></img>
+        <Box
+          sx={{
+            height: "30%",
+            display: "flex",
+            flexDirection: "column",
+            rowGap: theme.spacing(1),
+          }}
         >
-          {title}
-        </Typography>
-        <Typography variant="b1" component="h3" sx={{ color: "white" }}>
-          {desc}
-        </Typography>
+          <Typography
+            variant="h3"
+            component="h2"
+            sx={{ color: "white", fontWeight: "bold" }}
+          >
+            {title}
+          </Typography>
+          <Typography variant="b1" component="h3" sx={{ color: "white" }}>
+            {desc}
+          </Typography>
+        </Box>
       </Box>
-    </Box>
+    </motion.a>
   );
 };
 export default MenuCard;

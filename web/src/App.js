@@ -9,6 +9,8 @@ import ProgressElement from "./components/progress_bar/progress_element";
 import Showcase from "./components/showcase/showcase";
 import IconButton from "./components/buttons/icon_button";
 import { ButtonUnstyled } from "@mui/base";
+import MenuCard from "./components/menu_card/menu_card";
+import SearchCard from "./components/search_card/search_card";
 function App() {
   return (
     <Box
@@ -31,8 +33,9 @@ function App() {
           justifyContent: "center",
         }}
       >
-        <IconButton src="/spotify.svg">login to spotify</IconButton>
-        <IconButton href="google.com">play on spotify</IconButton>
+      <TrackCard src="./sample_album.png" title="oceanblock" desc="fun">
+
+      </TrackCard>
       </Box>
     </Box>
   );

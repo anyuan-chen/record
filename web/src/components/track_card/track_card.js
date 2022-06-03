@@ -1,23 +1,46 @@
 import { Typography } from "@mui/material";
 import { Box } from "@mui/system";
 import theme from "../../styles/theme";
+import { motion } from "framer-motion";
 
+const boxVariants = {
+  rest: {},
+  hover: {
+    backgroundColor: theme.palette.bgSecondary.darker,
+  },
+};
+const arrowVariants = {
+  rest: {
+    transform: "none",
+  },
+  hover: {
+    transform: "translate(1px,-1px)",
+  },
+};
 const TrackCard = ({ src, title, desc, href, sx }) => {
   return (
-    <a href={href}>
+    <motion.a href={href}>
       <Box
         sx={{
           background: theme.palette.bgSecondary.main,
           width: "100%",
           height: "100%",
-          padding: theme.spacing(4),
+          py: theme.spacing(6),
+          cursor: "pointer",
+          px: theme.spacing(4),
           borderRadius: theme.spacing(4),
           display: "flex",
           flexDirection: "column",
           textDecoration: "none",
           justifyContent: "space-evenly",
+          rowGap: theme.spacing(2),
           ...sx,
         }}
+        component={motion.div}
+        initial="rest"
+        animate="rest"
+        whileHover="hover"
+        variants={boxVariants}
       >
         <img
           src={src}
@@ -30,7 +53,7 @@ const TrackCard = ({ src, title, desc, href, sx }) => {
           }}
         ></img>
 
-        <Box sx={{ display: "flex", justifyContent: "space-between"}}>
+        <Box sx={{ display: "flex", justifyContent: "space-between" }} component={motion.div}>
           <Typography
             variant="h3"
             component="h2"
@@ -38,7 +61,7 @@ const TrackCard = ({ src, title, desc, href, sx }) => {
           >
             {title}
           </Typography>
-          <img src="/arrow.svg" alt="arrow"></img>
+          <motion.img src="/arrow.svg" alt="arrow" variants={arrowVariants}></motion.img>
         </Box>
         <Typography
           variant="b1"
@@ -48,7 +71,7 @@ const TrackCard = ({ src, title, desc, href, sx }) => {
           {desc}
         </Typography>
       </Box>
-    </a>
+    </motion.a>
   );
 };
 export default TrackCard;

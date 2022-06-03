@@ -12,9 +12,9 @@ let theme = createTheme({
   },
   palette: {
     primary: { main: "rgba(255,255,255,0.90)" },
-    secondary: { main: "rgba(255,255,255,0.6)" },
+    secondary: { main: "rgba(255,255,255,0.6)"},
     bgPrimary: { main: "rgba(18,18,18,0.925)" },
-    bgSecondary: { main: "rgba(230,246,255,0.125)" },
+    bgSecondary: { main: "rgba(230,246,255,0.125)", darker: "rgba(230,246,255,0.05)"},
     bgTertiary: { main: "rgba(18,18,18,0.6)" },
   },
   typography: {
