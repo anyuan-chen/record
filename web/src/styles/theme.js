@@ -11,11 +11,11 @@ let theme = createTheme({
     },
   },
   palette: {
-    primary: { main: "rgba(255,255,255,0.95)" },
+    primary: { main: "rgba(255,255,255,0.90)" },
     secondary: { main: "rgba(255,255,255,0.6)" },
-    bgPrimary: { main: "rgba(18,18,18,0.97)" },
+    bgPrimary: { main: "rgba(18,18,18,0.925)" },
     bgSecondary: { main: "rgba(230,246,255,0.125)" },
-    bgTertiary: { main: "rgba(18,18,18,0.125)" },
+    bgTertiary: { main: "rgba(18,18,18,0.6)" },
   },
   typography: {
     oversize: {

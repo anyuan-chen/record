@@ -1,7 +1,7 @@
 import { Box, Typography } from "@mui/material";
-import Bar from "./bar";
 import theme from "../../styles/theme";
-const Item = ({ percentage, title }) => {
+import GraphBar from "./bar";
+const GraphItem = ({ percentage, title }) => {
   return (
     <Box
       sx={{
@@ -21,7 +21,7 @@ const Item = ({ percentage, title }) => {
           alignItems: "center",
         }}
       >
-        <Bar percentage={percentage} sx={{ width: "90%" }}></Bar>
+        <GraphBar percentage={percentage} sx={{ width: "90%" }}></GraphBar>
         <Typography variant="b1" sx={{ fontWeight: "bold" }}>
           {percentage}%
         </Typography>
@@ -30,4 +30,4 @@ const Item = ({ percentage, title }) => {
   );
 };
 
-export default Item;
+export default GraphItem;

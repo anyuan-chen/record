@@ -7,14 +7,13 @@ const percentageConverter = (number) => {
   }
   return number;
 };
-const Bar = ({ percentage, sx, height }) => {
+const GraphBar = ({ percentage, sx, height }) => {
   return (
     <Box
       sx={{
         height: height ? height : theme.spacing(6),
         backgroundColor: theme.palette.primary.main,
         color: theme.palette.primary.main,
-
         ...sx,
       }}
     >
@@ -31,4 +30,4 @@ const Bar = ({ percentage, sx, height }) => {
     </Box>
   );
 };
-export default Bar;
+export default GraphBar;
