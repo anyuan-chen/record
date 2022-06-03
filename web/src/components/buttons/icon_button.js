@@ -1,9 +1,26 @@
 import { Typography } from "@mui/material";
 import theme from "../../styles/theme";
 import { Box } from "@mui/system";
+import { motion } from "framer-motion";
+const imgVariants = {
+  rest: {
+    filter:
+      "invert(99%) sepia(1%) saturate(1355%) hue-rotate(251deg) brightness(115%) contrast(100%)",
+  },
+  hover: {
+    filter: "none",
+  },
+};
+const boxVariants = {
+  rest: {},
+  hover: {
+    backgroundColor: theme.palette.primary.main,
+    color: theme.palette.bgPrimary.main,
+  },
+};
 const IconButton = ({ src, children, onClick, href }) => {
   return (
-    <a href={href}>
+    <motion.a href={href}>
       <Box
         sx={{
           display: "flex",
@@ -18,15 +35,23 @@ const IconButton = ({ src, children, onClick, href }) => {
           justifyContent: "center",
           borderRadius: theme.spacing(3),
         }}
-        component="button"
+        component={motion.button}
+        initial="rest"
+        whileHover="hover"
+        animate="rest"
         onClick={onClick}
+        variants={boxVariants}
       >
-        {src ? <img src={src} alt="icon"></img> : <></>}
+        {src ? (
+          <motion.img src={src} alt="icon" variants={imgVariants}></motion.img>
+        ) : (
+          <></>
+        )}
         <Typography variant="h4" component="h3">
           {children}
         </Typography>
       </Box>
-    </a>
+    </motion.a>
   );
 };
 export default IconButton;
