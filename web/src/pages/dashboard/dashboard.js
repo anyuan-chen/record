@@ -21,6 +21,7 @@ const Dashboard = () => {
             flexDirection: "column",
             py: theme.spacing(6),
             rowGap: theme.spacing(5),
+            minHeight: "100vh"
           }}
         >
           <Typography variant="h0" sx={{ color: theme.palette.tertiary.main }}>

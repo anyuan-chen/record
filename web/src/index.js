@@ -4,7 +4,6 @@ import App from "./App";
 import { ThemeProvider } from "@mui/system";
 import theme from "./styles/theme";
 import "./styles/globals.css";
-import { AnimatePresence } from "framer-motion";
 
 const root = ReactDOM.createRoot(document.getElementById("root"));
 root.render(

@@ -1,7 +1,7 @@
 import { Typography } from "@mui/material";
 import { Box } from "@mui/system";
 import theme from "../../styles/theme";
-const Showcase = ({ title, artist, album, song, src, sx }) => {
+const Showcase = ({ title, artist, album, track, src, sx }) => {
   return (
     <Box
       sx={{
@@ -13,7 +13,7 @@ const Showcase = ({ title, artist, album, song, src, sx }) => {
         color: theme.palette.primary.main,
         position: "relative",
         width: "1200px",
-        ...sx
+        ...sx,
       }}
     >
       <Box
@@ -52,7 +52,10 @@ const Showcase = ({ title, artist, album, song, src, sx }) => {
             width: "100%",
           }}
         >
-          <Typography variant="h0" sx={{ fontWeight: "bold", maxWidth: "50%" }}>
+          <Typography
+            variant={artist.length > 14 ? "h1" : "h0"}
+            sx={{ fontWeight: "bold", maxWidth: "70%" }}
+          >
             {artist}
           </Typography>
         </Box>
@@ -65,9 +68,9 @@ const Showcase = ({ title, artist, album, song, src, sx }) => {
             left: theme.spacing(6),
           }}
         >
-          <img src="./Album.svg" alt="album icon"></img>
+          <img src="/Album.svg" alt="album icon"></img>
           <Typography>
-            {album} - {song}
+            {album} - {track}
           </Typography>
         </Box>
       </Box>
@@ -82,7 +85,8 @@ const Showcase = ({ title, artist, album, song, src, sx }) => {
         src={src}
         alt="album"
         style={{
-          height: "100%",
+          width: "550px",
+          height: "550px",
           right: 0,
           position: "absolute",
           top: theme.spacing(6),

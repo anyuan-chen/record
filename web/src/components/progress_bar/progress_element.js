@@ -2,11 +2,12 @@ import { Box } from "@mui/system";
 import { Typography } from "@mui/material";
 import theme from "../../styles/theme";
 import { motion } from "framer-motion";
+import { Link } from "react-router-dom";
 const ProgressElement = ({ activated, children, href }) => {
   const unactivatedSx = {
     borderRadius: theme.spacing(4),
-    px: theme.spacing(11),
-    py: theme.spacing(2),
+    px: theme.spacing(8),
+    py: theme.spacing(2.5),
     color: theme.palette.primary.main,
     display: "flex",
     alignItems: "center",
@@ -18,7 +19,7 @@ const ProgressElement = ({ activated, children, href }) => {
   };
 
   return (
-    <motion.a href={href}>
+    <Link to={href}>
       <Box
         sx={activated ? activatedSx : unactivatedSx}
         component={motion.div}
@@ -28,7 +29,7 @@ const ProgressElement = ({ activated, children, href }) => {
           {children}
         </Typography>
       </Box>
-    </motion.a>
+    </Link>
   );
 };
 export default ProgressElement;
