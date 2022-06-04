@@ -181,9 +181,18 @@ table {
   font-display: swap;
 }
 
-html{
+html {
   font-size: 16px;
 }
 a {
   text-decoration: none;
+}
+
+.scroll_bar::-webkit-scrollbar {
+  background-color: rgba(0, 0, 0, 0);
+}
+.scroll_bar::-webkit-scrollbar-thumb {
+  background-color: rgba(255, 255, 255, 0.5);
+  border-radius: 8px;
+  margin-right: 4px;
 }

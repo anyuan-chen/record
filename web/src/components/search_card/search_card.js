@@ -2,29 +2,29 @@ import { Typography } from "@mui/material";
 import { Box } from "@mui/system";
 import { motion } from "framer-motion";
 import theme from "../../styles/theme";
-const boxVariants = {
-    rest: {
-        background: theme.palette.bgSecondary.main,
-    },
-    hover : {
-        background: theme.palette.bgSecondary.darker,
-    }
-}
-const SearchCard = ({ src, title, desc, sx }) => {
+
+const SearchCard = ({ src, title, desc, sx, href}) => {
   return (
     <Box
       sx={{
-        backgroundColor: theme.palette.bgSecondary.main,
+        backgroundColor: theme.palette.bgSecondary.darker,
         borderRadius: theme.spacing(4),
         padding: theme.spacing(4),
         display: "flex",
         columnGap: theme.spacing(4),
         ...sx,
       }}
-      component={motion.div}
-      whileHover={{ backgroundColor: theme.palette.bgSecondary.darker }}
+      component={motion.a}
+      href={href}
+      whileHover={{ backgroundColor: theme.palette.bgSecondary.main }}
     >
-      <Box sx={{ borderRadius: theme.spacing(4), overflow: "hidden" }}>
+      <Box
+        sx={{
+          borderRadius: theme.spacing(4),
+          overflow: "hidden",
+          maxWidth: "40%",
+        }}
+      >
         <img
           src={src}
           alt={title}
