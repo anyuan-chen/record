@@ -1,7 +1,7 @@
 import React from "react";
 import { Typography } from "@mui/material";
 import Cta from "../../components/cta/cta";
-import Box from "@mui/material";
+import { Box } from "@mui/material";
 import theme from "../../styles/theme";
 import IconButton from "../../components/buttons/icon_button";
 export default function LanderCta() {
@@ -15,9 +15,11 @@ export default function LanderCta() {
           color: "white",
         }}
       >
-        <Typography variant="h3">find out, if you please</Typography>
-        <Typography variant="b1">
-          don’t worry - we won’t change your <br></br> precious playlists.
+        <Typography variant="h4" sx={{ fontWeight: "bold" }}>
+          find out, if you please.
+        </Typography>
+        <Typography variant="h5" sx={{ fontWeight: "300" }}>
+          don’t worry - we won’t change your precious playlists.
         </Typography>
       </Box>
       <IconButton src="/spotify.svg">login to spotify</IconButton>

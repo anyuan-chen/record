@@ -9,10 +9,8 @@ import { AnimatePresence } from "framer-motion";
 const root = ReactDOM.createRoot(document.getElementById("root"));
 root.render(
   <React.StrictMode>
-    <AnimatePresence>
       <ThemeProvider theme={theme}>
         <App></App>
       </ThemeProvider>
-    </AnimatePresence>
   </React.StrictMode>
 );
