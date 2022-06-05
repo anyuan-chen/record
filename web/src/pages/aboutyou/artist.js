@@ -38,7 +38,6 @@ const Artist = () => {
         sx={{ position: "absolute", bottom: theme.spacing(6), right: "-100px" }}
       >
         <ProgressElement href="/">home</ProgressElement>
-
         <ProgressElement activated href="/aboutyou/artist">
           your artist
         </ProgressElement>
