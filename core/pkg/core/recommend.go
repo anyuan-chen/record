@@ -7,6 +7,7 @@ import (
 	"github.com/anyuan-chen/record/proto/pkg/core_pb"
 	"github.com/zmb3/spotify/v2"
 	"golang.org/x/oauth2"
+	"google.golang.org/protobuf/types/known/emptypb"
 )
 
 func (c *CoreService) GetRecommendedSongs(ctx context.Context, number_with_token *core_pb.NumberWithToken) (*core_pb.JSONResponse, error) {
@@ -30,7 +31,7 @@ func (c *CoreService) GetRecommendedSongs(ctx context.Context, number_with_token
 	return &core_pb.JSONResponse{Data: recommended_songs_json}, nil
 }
 
-func (c *CoreService) MakeRecommendedPlaylist(ctx context.Context, token_json *core_pb.Token) (*core_pb.Empty, error) {
+func (c *CoreService) MakeRecommendedPlaylist(ctx context.Context, token_json *core_pb.Token) (*emptypb.Empty, error) {
 	var token *oauth2.Token
 	json.Unmarshal(token_json.Token, token)
 	client := spotify.New(c.Authenticator.Client(context.Background(), token))
@@ -61,5 +62,5 @@ func (c *CoreService) MakeRecommendedPlaylist(ctx context.Context, token_json *c
 	if err != nil {
 		return nil, err
 	}
-	return &core_pb.Empty{}, nil
+	return &emptypb.Empty{}, nil
 }

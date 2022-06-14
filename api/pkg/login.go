@@ -9,11 +9,13 @@ import (
 	"os"
 	"time"
 
-	"github.com/anyuan-chen/record/proto/pkg/session_manager_pb"
+	"github.com/anyuan-chen/record/proto/pkg/core_pb"
 	spotifyauth "github.com/zmb3/spotify/v2/auth"
 )
 
-var auth = spotifyauth.New(spotifyauth.WithRedirectURL(os.Getenv("REDIRECT_URL")), spotifyauth.WithScopes(spotifyauth.ScopeUserReadPrivate))
+//genrates new set of credentials for spotify with the private/public key
+var scopes = spotifyauth.WithScopes(spotifyauth.ScopeUserReadPrivate, spotifyauth.ScopeUserTopRead, spotifyauth.ScopeUserLibraryModify, spotifyauth.ScopePlaylistModifyPublic, spotifyauth.ScopePlaylistModifyPrivate, spotifyauth.ScopeUserLibraryRead)
+var auth = spotifyauth.New(spotifyauth.WithRedirectURL(os.Getenv("REDIRECT_URL")), scopes)
 
 func (s *HttpService) SpotifyLogin(w http.ResponseWriter, r *http.Request) {
 	expiration := time.Now().Add(20 * time.Minute)
@@ -43,10 +45,11 @@ func (s *HttpService) SpotifyCallback(w http.ResponseWriter, r *http.Request) {
 	}
 
 	token_json, err := json.Marshal(token)
+
 	if err != nil {
 		http.Error(w, "Error encoding JSON token", http.StatusInternalServerError)
 	}
-	session_id, err := s.Session_manager.CreateSession(context.Background(), &session_manager_pb.Token{Token: token_json})
+	session_id, err := s.Session_manager.CreateSession(context.Background(), &core_pb.Token{Token: token_json})
 
 	if err != nil {
 		http.Error(w, "Problem with the session management service: "+err.Error(), http.StatusInternalServerError)

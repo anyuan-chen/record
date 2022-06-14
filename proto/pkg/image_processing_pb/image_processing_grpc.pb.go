@@ -8,6 +8,7 @@ package image_processing_pb
 
 import (
 	context "context"
+	core_pb "github.com/anyuan-chen/record/proto/pkg/core_pb"
 	grpc "google.golang.org/grpc"
 	codes "google.golang.org/grpc/codes"
 	status "google.golang.org/grpc/status"
@@ -22,7 +23,7 @@ const _ = grpc.SupportPackageIsVersion7
 //
 // For semantics around ctx use and closing/ending streaming RPCs, please refer to https://pkg.go.dev/google.golang.org/grpc/?tab=doc#ClientConn.NewStream.
 type ImageProcessorClient interface {
-	GetCollage(ctx context.Context, in *Images, opts ...grpc.CallOption) (*Image, error)
+	GetCollage(ctx context.Context, in *Images, opts ...grpc.CallOption) (*core_pb.Image, error)
 }
 
 type imageProcessorClient struct {
@@ -33,8 +34,8 @@ func NewImageProcessorClient(cc grpc.ClientConnInterface) ImageProcessorClient {
 	return &imageProcessorClient{cc}
 }
 
-func (c *imageProcessorClient) GetCollage(ctx context.Context, in *Images, opts ...grpc.CallOption) (*Image, error) {
-	out := new(Image)
+func (c *imageProcessorClient) GetCollage(ctx context.Context, in *Images, opts ...grpc.CallOption) (*core_pb.Image, error) {
+	out := new(core_pb.Image)
 	err := c.cc.Invoke(ctx, "/proto.ImageProcessor/GetCollage", in, out, opts...)
 	if err != nil {
 		return nil, err
@@ -46,7 +47,7 @@ func (c *imageProcessorClient) GetCollage(ctx context.Context, in *Images, opts 
 // All implementations must embed UnimplementedImageProcessorServer
 // for forward compatibility
 type ImageProcessorServer interface {
-	GetCollage(context.Context, *Images) (*Image, error)
+	GetCollage(context.Context, *Images) (*core_pb.Image, error)
 	mustEmbedUnimplementedImageProcessorServer()
 }
 
@@ -54,7 +55,7 @@ type ImageProcessorServer interface {
 type UnimplementedImageProcessorServer struct {
 }
 
-func (UnimplementedImageProcessorServer) GetCollage(context.Context, *Images) (*Image, error) {
+func (UnimplementedImageProcessorServer) GetCollage(context.Context, *Images) (*core_pb.Image, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method GetCollage not implemented")
 }
 func (UnimplementedImageProcessorServer) mustEmbedUnimplementedImageProcessorServer() {}

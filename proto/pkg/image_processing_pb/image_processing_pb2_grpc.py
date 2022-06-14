@@ -2,6 +2,7 @@
 """Client and server classes corresponding to protobuf-defined services."""
 import grpc
 
+import core_pb2 as core__pb2
 import image_processing_pb2 as image__processing__pb2
 
 
@@ -17,7 +18,7 @@ class ImageProcessorStub(object):
         self.GetCollage = channel.unary_unary(
                 '/proto.ImageProcessor/GetCollage',
                 request_serializer=image__processing__pb2.Images.SerializeToString,
-                response_deserializer=image__processing__pb2.Image.FromString,
+                response_deserializer=core__pb2.Image.FromString,
                 )
 
 
@@ -36,7 +37,7 @@ def add_ImageProcessorServicer_to_server(servicer, server):
             'GetCollage': grpc.unary_unary_rpc_method_handler(
                     servicer.GetCollage,
                     request_deserializer=image__processing__pb2.Images.FromString,
-                    response_serializer=image__processing__pb2.Image.SerializeToString,
+                    response_serializer=core__pb2.Image.SerializeToString,
             ),
     }
     generic_handler = grpc.method_handlers_generic_handler(
@@ -61,6 +62,6 @@ class ImageProcessor(object):
             metadata=None):
         return grpc.experimental.unary_unary(request, target, '/proto.ImageProcessor/GetCollage',
             image__processing__pb2.Images.SerializeToString,
-            image__processing__pb2.Image.FromString,
+            core__pb2.Image.FromString,
             options, channel_credentials,
             insecure, call_credentials, compression, wait_for_ready, timeout, metadata)

@@ -12,15 +12,15 @@ from google.protobuf import symbol_database as _symbol_database
 _sym_db = _symbol_database.Default()
 
 
+import core_pb2 as core__pb2
 
 
-DESCRIPTOR = _descriptor_pool.Default().AddSerializedFile(b'\n\x16image_processing.proto\x12\x05proto\"a\n\x06Images\x12\x1f\n\x06images\x18\x01 \x03(\x0b\x32\x0f.proto.ImageURL\x12\x10\n\x08rowCount\x18\x02 \x01(\x03\x12\x10\n\x08\x63olCount\x18\x03 \x01(\x03\x12\x12\n\ntargetSize\x18\x04 \x01(\x03\"\x1c\n\x08ImageURL\x12\x10\n\x08imageURL\x18\x01 \x01(\t\"\x16\n\x05Image\x12\r\n\x05image\x18\x01 \x01(\x0c\x32;\n\x0eImageProcessor\x12)\n\nGetCollage\x12\r.proto.Images\x1a\x0c.proto.Imageb\x06proto3')
+DESCRIPTOR = _descriptor_pool.Default().AddSerializedFile(b'\n\x16image_processing.proto\x12\x05proto\x1a\ncore.proto\"a\n\x06Images\x12\x1f\n\x06images\x18\x01 \x03(\x0b\x32\x0f.proto.ImageURL\x12\x10\n\x08rowCount\x18\x02 \x01(\x03\x12\x10\n\x08\x63olCount\x18\x03 \x01(\x03\x12\x12\n\ntargetSize\x18\x04 \x01(\x03\"\x1c\n\x08ImageURL\x12\x10\n\x08imageURL\x18\x01 \x01(\t2;\n\x0eImageProcessor\x12)\n\nGetCollage\x12\r.proto.Images\x1a\x0c.proto.ImageB=Z;github.com/anyuan-chen/record/proto/pkg/image_processing_pbb\x06proto3')
 
 
 
 _IMAGES = DESCRIPTOR.message_types_by_name['Images']
 _IMAGEURL = DESCRIPTOR.message_types_by_name['ImageURL']
-_IMAGE = DESCRIPTOR.message_types_by_name['Image']
 Images = _reflection.GeneratedProtocolMessageType('Images', (_message.Message,), {
   'DESCRIPTOR' : _IMAGES,
   '__module__' : 'image_processing_pb2'
@@ -35,23 +35,15 @@ ImageURL = _reflection.GeneratedProtocolMessageType('ImageURL', (_message.Messag
   })
 _sym_db.RegisterMessage(ImageURL)
 
-Image = _reflection.GeneratedProtocolMessageType('Image', (_message.Message,), {
-  'DESCRIPTOR' : _IMAGE,
-  '__module__' : 'image_processing_pb2'
-  # @@protoc_insertion_point(class_scope:proto.Image)
-  })
-_sym_db.RegisterMessage(Image)
-
 _IMAGEPROCESSOR = DESCRIPTOR.services_by_name['ImageProcessor']
 if _descriptor._USE_C_DESCRIPTORS == False:
 
   DESCRIPTOR._options = None
-  _IMAGES._serialized_start=33
-  _IMAGES._serialized_end=130
-  _IMAGEURL._serialized_start=132
-  _IMAGEURL._serialized_end=160
-  _IMAGE._serialized_start=162
-  _IMAGE._serialized_end=184
-  _IMAGEPROCESSOR._serialized_start=186
-  _IMAGEPROCESSOR._serialized_end=245
+  DESCRIPTOR._serialized_options = b'Z;github.com/anyuan-chen/record/proto/pkg/image_processing_pb'
+  _IMAGES._serialized_start=45
+  _IMAGES._serialized_end=142
+  _IMAGEURL._serialized_start=144
+  _IMAGEURL._serialized_end=172
+  _IMAGEPROCESSOR._serialized_start=174
+  _IMAGEPROCESSOR._serialized_end=233
 # @@protoc_insertion_point(module_scope)

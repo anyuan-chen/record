@@ -7,6 +7,7 @@ import (
 	"net"
 	"testing"
 
+	"github.com/anyuan-chen/record/proto/pkg/core_pb"
 	"github.com/anyuan-chen/record/proto/pkg/session_manager_pb"
 	session_manager "github.com/anyuan-chen/record/session_manager/pkg/session_manager"
 	"github.com/google/uuid"
@@ -21,7 +22,7 @@ const bufSize = 1024 * 1024
 func init(){
 	lis = bufconn.Listen(bufSize)
 	s := grpc.NewServer()
-	session_table := make(map[string]*session_manager_pb.Token)
+	session_table := make(map[string]*core_pb.Token)
 	session_manager_pb.RegisterSessionManagerServer(s, &session_manager.Session_manager_server{Session_table: session_table})
 	go func () {
 		if err := s.Serve(lis); err != nil {
@@ -43,7 +44,7 @@ func TestClientCreateRetrieveConnection(t *testing.T) {
 	defer session_manager.Close()
 	Manager := session_manager_pb.NewSessionManagerClient(session_manager)
 	sampleToken_value, _ := json.Marshal(oauth2.Token{})
-	sampleToken := &session_manager_pb.Token{Token: sampleToken_value}
+	sampleToken := &core_pb.Token{Token: sampleToken_value}
 	id, err := Manager.CreateSession(context.Background(), sampleToken)
 	assert.Nil(t, err)
 	token, err := Manager.GetSession(context.Background(), &session_manager_pb.SessionID{Code: id.Code})
@@ -60,9 +61,9 @@ func TestClientCreateRetrieveConnection(t *testing.T) {
 }
 //local test without networking/grpc for the logic of the session manager
 func TestCreateRetrieveSession(t *testing.T){
-	session_table := make(map[string]*session_manager_pb.Token)
+	session_table := make(map[string]*core_pb.Token)
 	Manager := session_manager.Session_manager_server{Session_table: session_table}
-	sampleToken := &session_manager_pb.Token{Token: []byte("hi")}
+	sampleToken := &core_pb.Token{Token: []byte("hi")}
 	id, err := Manager.CreateSession(context.Background(), sampleToken)
 	assert.Nil(t, err)
 	token, err := Manager.GetSession(context.Background(), &session_manager_pb.SessionID{Code: id.Code})

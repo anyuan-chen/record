@@ -5,6 +5,7 @@ import (
 	"net/http"
 
 	api "github.com/anyuan-chen/record/api/pkg"
+	"github.com/anyuan-chen/record/proto/pkg/core_pb"
 	"github.com/anyuan-chen/record/proto/pkg/session_manager_pb"
 	"google.golang.org/grpc"
 	"google.golang.org/grpc/credentials/insecure"
@@ -15,9 +16,17 @@ func main() {
 	if err != nil {
 		log.Fatal(err)
 	}
-	client := session_manager_pb.NewSessionManagerClient(session_manager)
-	service := api.NewService(client)
+	session_client := session_manager_pb.NewSessionManagerClient(session_manager)
+
+	core_manager, err := grpc.Dial("localhost:6060", grpc.WithTransportCredentials(insecure.NewCredentials()))
+	if err != nil {
+		log.Fatal(err)
+	}
+	core_client := core_pb.NewCoreManagerClient(core_manager)
+
+	service := api.NewService(session_client, core_client)
 	http.HandleFunc("/login", service.SpotifyLogin)
 	http.HandleFunc("/callback", service.SpotifyCallback)
+	http.HandleFunc("/gettopartists", service.TopArtists)
 	http.ListenAndServe(":8080", nil)
 }

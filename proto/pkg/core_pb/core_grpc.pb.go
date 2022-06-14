@@ -11,6 +11,7 @@ import (
 	grpc "google.golang.org/grpc"
 	codes "google.golang.org/grpc/codes"
 	status "google.golang.org/grpc/status"
+	emptypb "google.golang.org/protobuf/types/known/emptypb"
 )
 
 // This is a compile-time assertion to ensure that this generated file
@@ -26,7 +27,7 @@ type CoreManagerClient interface {
 	GetTopSongs(ctx context.Context, in *NumberWithToken, opts ...grpc.CallOption) (*JSONResponse, error)
 	GetTopGenres(ctx context.Context, in *Token, opts ...grpc.CallOption) (*JSONResponse, error)
 	GetRecommendedSongs(ctx context.Context, in *NumberWithToken, opts ...grpc.CallOption) (*JSONResponse, error)
-	MakeRecommendedPlaylist(ctx context.Context, in *Token, opts ...grpc.CallOption) (*Empty, error)
+	MakeRecommendedPlaylist(ctx context.Context, in *Token, opts ...grpc.CallOption) (*emptypb.Empty, error)
 	GetPopularityScore(ctx context.Context, in *Token, opts ...grpc.CallOption) (*FloatScore, error)
 	GetTopArtistsCollage(ctx context.Context, in *Token, opts ...grpc.CallOption) (*Image, error)
 	GetTopAlbumsCollage(ctx context.Context, in *Token, opts ...grpc.CallOption) (*Image, error)
@@ -76,8 +77,8 @@ func (c *coreManagerClient) GetRecommendedSongs(ctx context.Context, in *NumberW
 	return out, nil
 }
 
-func (c *coreManagerClient) MakeRecommendedPlaylist(ctx context.Context, in *Token, opts ...grpc.CallOption) (*Empty, error) {
-	out := new(Empty)
+func (c *coreManagerClient) MakeRecommendedPlaylist(ctx context.Context, in *Token, opts ...grpc.CallOption) (*emptypb.Empty, error) {
+	out := new(emptypb.Empty)
 	err := c.cc.Invoke(ctx, "/proto.CoreManager/MakeRecommendedPlaylist", in, out, opts...)
 	if err != nil {
 		return nil, err
@@ -120,7 +121,7 @@ type CoreManagerServer interface {
 	GetTopSongs(context.Context, *NumberWithToken) (*JSONResponse, error)
 	GetTopGenres(context.Context, *Token) (*JSONResponse, error)
 	GetRecommendedSongs(context.Context, *NumberWithToken) (*JSONResponse, error)
-	MakeRecommendedPlaylist(context.Context, *Token) (*Empty, error)
+	MakeRecommendedPlaylist(context.Context, *Token) (*emptypb.Empty, error)
 	GetPopularityScore(context.Context, *Token) (*FloatScore, error)
 	GetTopArtistsCollage(context.Context, *Token) (*Image, error)
 	GetTopAlbumsCollage(context.Context, *Token) (*Image, error)
@@ -143,7 +144,7 @@ func (UnimplementedCoreManagerServer) GetTopGenres(context.Context, *Token) (*JS
 func (UnimplementedCoreManagerServer) GetRecommendedSongs(context.Context, *NumberWithToken) (*JSONResponse, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method GetRecommendedSongs not implemented")
 }
-func (UnimplementedCoreManagerServer) MakeRecommendedPlaylist(context.Context, *Token) (*Empty, error) {
+func (UnimplementedCoreManagerServer) MakeRecommendedPlaylist(context.Context, *Token) (*emptypb.Empty, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method MakeRecommendedPlaylist not implemented")
 }
 func (UnimplementedCoreManagerServer) GetPopularityScore(context.Context, *Token) (*FloatScore, error) {
