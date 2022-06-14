@@ -28,5 +28,7 @@ func main() {
 	http.HandleFunc("/login", service.SpotifyLogin)
 	http.HandleFunc("/callback", service.SpotifyCallback)
 	http.HandleFunc("/gettopartists", service.TopArtists)
+	http.HandleFunc("/gettopsongs", service.TopSongs)
+	http.HandleFunc("/gettopgenres", service.TopGenres)
 	http.ListenAndServe(":8080", nil)
 }

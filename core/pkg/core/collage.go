@@ -13,7 +13,7 @@ import (
 )
 
 func (c *CoreService) GetTopArtistsCollage(ctx context.Context, token_json *core_pb.Token) (*core_pb.Image, error) {
-	var token *oauth2.Token
+	var token = &oauth2.Token{}
 	json.Unmarshal(token_json.Token, token)
 	client := spotify.New(c.Authenticator.Client(context.Background(), token))
 	artists, err := client.CurrentUsersTopArtists(context.Background(), spotify.Limit(50))

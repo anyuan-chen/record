@@ -34,14 +34,19 @@ func DefaultSeedProfile(c *CoreService, token *oauth2.Token) (spotify.Seeds, err
 	}
 	var genres []GenreWithFrequency
 	genres_json, err := c.GetTopGenres(context.Background(), &core_pb.Token{Token: token_json})
-	json.Unmarshal(genres_json.Data, genres)
+	if err != nil {
+		return spotify.Seeds{}, err
+	}
+	err = json.Unmarshal(genres_json.Data, &genres)
+	if err != nil {
+		return spotify.Seeds{}, err
+	}
 	genres_id := make([]string, 0, 5)
 	for i := 0; i < len(genres) && i < 5; i++ {
-		genres_id = append(genres_id, genres[i].genre)
+		genres_id = append(genres_id, genres[i].Genre)
 	}
 
-	var recommendation_seeds spotify.Seeds
-	recommendation_seeds = spotify.Seeds{
+	recommendation_seeds := spotify.Seeds{
 		Artists: artists_id,
 		Tracks:  tracks_id,
 		Genres:  genres_id,

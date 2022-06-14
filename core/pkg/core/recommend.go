@@ -12,7 +12,7 @@ import (
 
 func (c *CoreService) GetRecommendedSongs(ctx context.Context, number_with_token *core_pb.NumberWithToken) (*core_pb.JSONResponse, error) {
 	numberOfSongs := number_with_token.Number.Number
-	var token *oauth2.Token
+	var token = &oauth2.Token{}
 	json.Unmarshal(number_with_token.Token.Token, token)
 	client := spotify.New(c.Authenticator.Client(context.Background(), token))
 	recommendation_seeds, err := DefaultSeedProfile(c, token)
@@ -32,7 +32,7 @@ func (c *CoreService) GetRecommendedSongs(ctx context.Context, number_with_token
 }
 
 func (c *CoreService) MakeRecommendedPlaylist(ctx context.Context, token_json *core_pb.Token) (*emptypb.Empty, error) {
-	var token *oauth2.Token
+	var token = &oauth2.Token{}
 	json.Unmarshal(token_json.Token, token)
 	client := spotify.New(c.Authenticator.Client(context.Background(), token))
 	user_id, err := client.CurrentUser(context.Background())

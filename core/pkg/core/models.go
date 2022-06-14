@@ -30,6 +30,6 @@ type CoreService struct {
 	core_pb.UnimplementedCoreManagerServer
 }
 type GenreWithFrequency struct {
-	frequency int
-	genre     string
+	Frequency int    `json:"frequency"`
+	Genre     string `json:"genre"`
 }

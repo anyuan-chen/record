@@ -10,7 +10,7 @@ import (
 )
 
 func (c *CoreService) GetPopularityScore(ctx context.Context, token_json *core_pb.Token) (*core_pb.FloatScore, error) {
-	var token *oauth2.Token
+	var token = &oauth2.Token{}
 	json.Unmarshal(token_json.Token, token)
 	client := spotify.New(c.Authenticator.Client(context.Background(), token))
 	tracks, err := client.CurrentUsersTopTracks(context.Background(), spotify.Limit(50))
