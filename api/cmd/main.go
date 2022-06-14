@@ -30,5 +30,7 @@ func main() {
 	http.HandleFunc("/gettopartists", service.TopArtists)
 	http.HandleFunc("/gettopsongs", service.TopSongs)
 	http.HandleFunc("/gettopgenres", service.TopGenres)
+	http.HandleFunc("/getrecommendedsongs", service.RecommendedSongs)
+	http.HandleFunc("/makerecommendedplaylist", service.MakeRecommendedPlaylist)
 	http.ListenAndServe(":8080", nil)
 }

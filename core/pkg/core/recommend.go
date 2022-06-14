@@ -56,7 +56,7 @@ func (c *CoreService) MakeRecommendedPlaylist(ctx context.Context, token_json *c
 	}
 	playlist_items := make([]spotify.ID, 0, len(recommended_songs.Tracks))
 	for _, track := range recommended_songs.Tracks {
-		playlist_items = append(playlist_items, spotify.ID(track.URI))
+		playlist_items = append(playlist_items, track.ID)
 	}
 	_, err = client.AddTracksToPlaylist(context.Background(), playlist.ID, playlist_items...)
 	if err != nil {

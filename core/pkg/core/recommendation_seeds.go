@@ -16,7 +16,7 @@ func DefaultSeedProfile(c *CoreService, token *oauth2.Token) (spotify.Seeds, err
 		return spotify.Seeds{}, err
 	}
 	artists_id := make([]spotify.ID, 0, 5)
-	for i := 0; i < len(artists.Artists) && i < 5; i++ {
+	for i := 0; i < len(artists.Artists) && i < 2; i++ {
 		artists_id = append(artists_id, artists.Artists[i].ID)
 	}
 
@@ -25,7 +25,7 @@ func DefaultSeedProfile(c *CoreService, token *oauth2.Token) (spotify.Seeds, err
 		return spotify.Seeds{}, err
 	}
 	tracks_id := make([]spotify.ID, 0, 5)
-	for i := 0; i < len(tracks.Tracks) && i < 5; i++ {
+	for i := 0; i < len(tracks.Tracks) && i < 2; i++ {
 		tracks_id = append(tracks_id, tracks.Tracks[i].ID)
 	}
 	token_json, err := json.Marshal(token)
@@ -42,7 +42,7 @@ func DefaultSeedProfile(c *CoreService, token *oauth2.Token) (spotify.Seeds, err
 		return spotify.Seeds{}, err
 	}
 	genres_id := make([]string, 0, 5)
-	for i := 0; i < len(genres) && i < 5; i++ {
+	for i := 0; i < len(genres) && i < 1; i++ {
 		genres_id = append(genres_id, genres[i].Genre)
 	}
 
@@ -51,5 +51,6 @@ func DefaultSeedProfile(c *CoreService, token *oauth2.Token) (spotify.Seeds, err
 		Tracks:  tracks_id,
 		Genres:  genres_id,
 	}
+
 	return recommendation_seeds, nil
 }

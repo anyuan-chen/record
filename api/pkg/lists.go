@@ -78,7 +78,7 @@ func (s *HttpService) TopGenres(w http.ResponseWriter, r *http.Request) {
 
 // 	AveragePopularity(w http.ResponseWriter, r *http.Request)
 // 	RecommendedSongs(w http.ResponseWriter, r *http.Request)
-// 	MakePlaylist(w http.ResponseWriter, r *http.Request)
+// 	MakeRecommendedPlaylist(w http.ResponseWriter, r *http.Request)
 
 // 	SpotifyLogin(w http.ResponseWriter, r *http.Request)   login route
 // 	SpotifyCallback(w http.ResponseWriter, r *http.Request)  login route
