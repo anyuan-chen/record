@@ -2,9 +2,9 @@
 // versions:
 // - protoc-gen-go-grpc v1.2.0
 // - protoc             v3.19.4
-// source: image_processing.proto
+// source: collage_maker.proto
 
-package image_processing_pb
+package collage_maker_pb
 
 import (
 	context "context"
@@ -102,5 +102,5 @@ var ImageProcessor_ServiceDesc = grpc.ServiceDesc{
 		},
 	},
 	Streams:  []grpc.StreamDesc{},
-	Metadata: "image_processing.proto",
+	Metadata: "collage_maker.proto",
 }
