@@ -6,6 +6,7 @@ import (
 	"image/draw"
 	"image/jpeg"
 	"net/http"
+	"sync"
 
 	"github.com/anyuan-chen/record/proto/pkg/collage_maker_pb"
 	"github.com/nfnt/resize"
@@ -44,8 +45,10 @@ func CreateCollage(rowNum int, colNum int, images []image.Image, heightOfImage i
 	output := Collage{image.NewRGBA(image.Rectangle{image.Point{0, 0}, bottomRightPoint})}
 	row := 1
 	col := 1
+	var wg sync.WaitGroup
 	for i := range images {
-		go DrawImageOntoCollage(row, col, heightOfImage, widthOfImage, images[i], &output)
+		wg.Add(1)
+		go DrawImageOntoCollage(row, col, heightOfImage, widthOfImage, images[i], &output, &wg)
 		if col == colNum {
 			col = 1
 			row++
@@ -53,10 +56,12 @@ func CreateCollage(rowNum int, colNum int, images []image.Image, heightOfImage i
 			col++
 		}
 	}
+	wg.Wait()
 	return &output
 }
 
-func DrawImageOntoCollage(row, col, height, width int, subImg image.Image, collage *Collage) {
+func DrawImageOntoCollage(row, col, height, width int, subImg image.Image, collage *Collage, wg *sync.WaitGroup) {
+	defer wg.Done()
 	collage.drawOnCollage(subImg, image.Point{(col - 1) * width, (row - 1) * height}, uint(width), uint(height))
 }
 
@@ -65,13 +70,13 @@ func GetImagesFromUrls(images *collage_maker_pb.Images) ([]image.Image, error) {
 	for _, pbImage := range images.Images {
 		resp, err := http.Get(pbImage.ImageURL)
 		if err != nil {
-			processedImages = append(processedImages, &image.RGBA{})
+			processedImages = append(processedImages, image.NewUniform(color.RGBA{34, 34, 34, 56}))
 			continue
 		}
 		defer resp.Body.Close()
 		decodedImage, err := jpeg.Decode(resp.Body)
 		if err != nil {
-			processedImages = append(processedImages, &image.RGBA{})
+			processedImages = append(processedImages, image.NewUniform(color.RGBA{34, 34, 34, 56}))
 			continue
 		}
 		processedImages = append(processedImages, decodedImage)

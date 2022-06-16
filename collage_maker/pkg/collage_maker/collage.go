@@ -19,10 +19,12 @@ func (c *Collage_Maker_Server) GetCollage(ctx context.Context, images *collage_m
 		return nil, err
 	}
 	collage := CreateCollage(int(images.RowCount), int(images.ColCount), convertedImages, int(images.TargetSize), int(images.TargetSize))
+
 	buf := new(bytes.Buffer)
 	err = jpeg.Encode(buf, collage, nil)
 	if err != nil {
 		return nil, err
 	}
+
 	return &core_pb.Image{Image: buf.Bytes()}, nil
 }

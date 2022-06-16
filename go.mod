@@ -9,6 +9,9 @@ require (
 
 require (
 	github.com/davecgh/go-spew v1.1.0 // indirect
+	github.com/fogleman/imview v0.0.0-20160829205857-7f26a718206b // indirect
+	github.com/go-gl/gl v0.0.0-20211210172815-726fda9656d6 // indirect
+	github.com/go-gl/glfw v0.0.0-20220516021902-eb3e265c7661 // indirect
 	github.com/nfnt/resize v0.0.0-20180221191011-83c6a9932646 // indirect
 	github.com/pmezard/go-difflib v1.0.0 // indirect
 	github.com/stretchr/testify v1.7.1 // indirect
