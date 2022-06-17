@@ -22,7 +22,12 @@ export default function LanderCta() {
           don’t worry - we won’t change your precious playlists.
         </Typography>
       </Box>
-      <IconButton src="/spotify.svg">login to spotify</IconButton>
+      <IconButton
+        src="/spotify.svg"
+        href={process.env.REACT_APP_BACKEND_URL + "/login"}
+      >
+        login to spotify
+      </IconButton>
     </Cta>
   );
 }

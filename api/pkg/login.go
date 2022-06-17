@@ -54,7 +54,7 @@ func (s *HttpService) SpotifyCallback(w http.ResponseWriter, r *http.Request) {
 	if err != nil {
 		http.Error(w, "Problem with the session management service: "+err.Error(), http.StatusInternalServerError)
 	}
-	cookie := http.Cookie{Name: "session_id", Value: session_id.Code}
+	cookie := http.Cookie{Name: "session_id", Value: session_id.Code, SameSite: http.SameSiteNoneMode, Secure: true}
 	http.SetCookie(w, &cookie)
 	http.Redirect(w, r, os.Getenv("FRONTEND_URL")+"/dashboard", http.StatusPermanentRedirect)
 }

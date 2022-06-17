@@ -61,7 +61,7 @@ let theme = createTheme({
     },
     b2: {
       fontWeight: "300",
-      fontSize: 1.0,
+      fontSize: "1rem",
       fontFamily: "Circular Std",
     },
   },

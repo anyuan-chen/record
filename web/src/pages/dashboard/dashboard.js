@@ -1,10 +1,13 @@
 import theme from "../../styles/theme";
 import Standard from "../../components/layouts/standard";
 import { Box } from "@mui/system";
-import { Typography } from "@mui/material";
 import MenuCard from "../../components/menu_card/menu_card";
+import useFetchJSON from "../../data/useFetchJSON";
 
 const Dashboard = () => {
+  const { data, error, loading } = useFetchJSON(
+    process.env.REACT_APP_BACKEND_URL + "/gettopartists"
+  );
   return (
     <Standard>
       <Box
@@ -16,52 +19,51 @@ const Dashboard = () => {
       >
         <Box
           sx={{
-            maxWidth: "1100px",
+            width: "1100px",
             display: "flex",
             flexDirection: "column",
             py: theme.spacing(6),
             rowGap: theme.spacing(5),
-            minHeight: "100vh"
+            minHeight: "100vh",
+            alignItems: "center",
+            justifyContent: "center",
           }}
         >
-          <Typography variant="h0" sx={{ color: theme.palette.tertiary.main }}>
-            hi andrew
-          </Typography>
           <Box
             sx={{
               py: theme.spacing(3),
-              px: theme.spacing(6),
+              px: theme.spacing(3),
               backgroundColor: theme.palette.bgSecondary.main,
               borderRadius: theme.spacing(4),
               display: "grid",
               gridTemplateColumns: "repeat(3, 1fr)",
               gridTemplateRows: "1fr 1fr",
-              columnGap: theme.spacing(6),
+              columnGap: theme.spacing(3),
               rowGap: theme.spacing(3),
             }}
           >
             <MenuCard
               src="/sample_album.png"
-              title="Title"
-              desc="Desc"
+              title="about you"
+              desc="boost or destroy your ego"
               sx={{ gridColumn: "1/2", gridRow: "1/2" }}
             ></MenuCard>
             <MenuCard
               src="/sample_album.png"
-              title="Title"
-              desc="Desc"
+              title="recommendations"
+              desc="do you really trust an ai to do this?"
               sx={{ gridColumn: "2/4", gridRow: "1/2" }}
             ></MenuCard>
             <MenuCard
               src="/sample_album.png"
-              title="Title"
-              desc="Desc"
+              title="explorer"
+              desc="find more about your favorite song"
               sx={{ gridColumn: "1/3", gridRow: "2/3" }}
             ></MenuCard>
             <MenuCard
               src="/sample_album.png"
-              title="Title"
-              desc="Desc"
+              title="log out"
+              desc="T_T pls come back soon"
               sx={{ gridColumn: "3/4", gridRow: "2/3" }}
             ></MenuCard>
           </Box>

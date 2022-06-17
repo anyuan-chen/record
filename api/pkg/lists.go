@@ -12,12 +12,15 @@ import (
 func (s *HttpService) TopArtists(w http.ResponseWriter, r *http.Request) {
 	session_id_cookie, err := r.Cookie("session_id")
 	if err != nil {
+		fmt.Println(err)
 		http.Error(w, "invalid session id", http.StatusBadRequest)
+		return
 	}
 	session_id := session_id_cookie.Value
 	session_token, err := s.Session_manager.GetSession(context.Background(), &session_manager_pb.SessionID{Code: session_id})
 	if err != nil {
 		http.Error(w, "no session exists", http.StatusBadRequest)
+		return
 	}
 	//fmt.Print(session_token)
 	number_and_token := core_pb.NumberWithToken{Number: &core_pb.Number{Number: 5}, Token: session_token}
@@ -25,6 +28,7 @@ func (s *HttpService) TopArtists(w http.ResponseWriter, r *http.Request) {
 	resp, err := s.Core_service.GetTopArtists(context.Background(), &number_and_token)
 	if err != nil {
 		http.Error(w, "grpc call failed T_T"+err.Error(), http.StatusBadRequest)
+		return
 	}
 	w.Header().Set("Content-Type", "application/json")
 	w.Write(resp.GetData())

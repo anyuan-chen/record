@@ -7,8 +7,8 @@ const MenuCard = ({ src, title, desc, sx, href }) => {
   return (
     <Box
       sx={{
-        py: theme.spacing(4),
-        px: theme.spacing(6),
+        py: theme.spacing(3),
+        px: theme.spacing(3),
         backgroundColor: theme.palette.bgSecondary.darker,
         borderRadius: theme.spacing(4),
         display: "flex",
@@ -25,7 +25,12 @@ const MenuCard = ({ src, title, desc, sx, href }) => {
       <img
         src={src}
         alt="menu_item_caption"
-        style={{ maxHeight: "200px", objectFit: "cover", borderRadius: theme.spacing(2) }}
+        style={{
+          height: "300px",
+          width: "100%",
+          objectFit: "cover",
+          borderRadius: theme.spacing(2),
+        }}
       ></img>
       <Box
         sx={{
@@ -35,13 +40,13 @@ const MenuCard = ({ src, title, desc, sx, href }) => {
         }}
       >
         <Typography
-          variant="h3"
+          variant="h4"
           component="h2"
           sx={{ color: "white", fontWeight: "bold" }}
         >
           {title}
         </Typography>
-        <Typography variant="b1" component="h3" sx={{ color: "white" }}>
+        <Typography variant="b2" component="h3" sx={{ color: "white" }}>
           {desc}
         </Typography>
       </Box>
