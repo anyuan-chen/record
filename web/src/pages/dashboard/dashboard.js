@@ -2,15 +2,35 @@ import theme from "../../styles/theme";
 import Standard from "../../components/layouts/standard";
 import { Box } from "@mui/system";
 import MenuCard from "../../components/menu_card/menu_card";
-import useFetchJPEG from "../../data/useFetchJPEG";
+import useFetch from "../../data/useFetch";
 
 const Dashboard = () => {
-  const { data, error, loading } = useFetchJPEG(
-    process.env.REACT_APP_BACKEND_URL + "/getartistscollage"
-  );
+  const { data, error, loading } = useFetch([
+    {
+      url: "http://localhost:8080/getartistscollage",
+      params: {
+        rows: 3,
+        cols: 3,
+        size: 300,
+        random: false,
+      },
+      responseType: "JPEG",
+    },
+    {
+      url: "http://localhost:8080/getartistscollage",
+      params: {
+        rows: 3,
+        cols: 9,
+        size: 300,
+        random: false,
+      },
+      responseType: "JPEG",
+    },
+  ]);
   if (error) {
-    console.log(data, error, loading);
+    console.log(error);
   }
+  console.log(data);
   return (
     <>
       {loading ? (
@@ -50,13 +70,13 @@ const Dashboard = () => {
                 }}
               >
                 <MenuCard
-                  src={data}
+                  src={data[0]}
                   title="about you"
                   desc="boost or destroy your ego"
                   sx={{ gridColumn: "1/2", gridRow: "1/2" }}
                 ></MenuCard>
                 <MenuCard
-                  src="/sample_album.png"
+                  src={data[1]}
                   title="recommendations"
                   desc="do you really trust an ai to do this?"
                   sx={{ gridColumn: "2/4", gridRow: "1/2" }}

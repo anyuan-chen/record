@@ -2,7 +2,7 @@ import { useEffect, useState } from "react";
 import axios from "axios";
 import { Buffer } from "buffer";
 
-const useFetchJPEG = (url) => {
+const useFetchJPEG = (url, params) => {
   const [data, setData] = useState(null);
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState(false);
@@ -15,12 +15,13 @@ const useFetchJPEG = (url) => {
           .get(url, {
             responseType: "arraybuffer",
             withCredentials: true,
+            params: params,
           })
           .then((response) =>
             Buffer.from(response.data, "binary").toString("base64")
           );
         response = "data:image/png;base64, " + response;
-        console.log(response)
+        console.log(response);
         setData(response);
       } catch (err) {
         setError(err);
