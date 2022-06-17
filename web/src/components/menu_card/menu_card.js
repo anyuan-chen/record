@@ -22,16 +22,27 @@ const MenuCard = ({ src, title, desc, sx, href }) => {
       component={motion.a}
       whileHover={{ backgroundColor: theme.palette.bgSecondary.main }}
     >
-      <img
-        src={src}
-        alt="menu_item_caption"
-        style={{
+      <Box
+        sx={{
           height: "300px",
           width: "100%",
-          objectFit: "cover",
           borderRadius: theme.spacing(2),
         }}
-      ></img>
+      >
+        <img
+          src={src}
+          alt="menu_item_caption"
+          style={{
+            height: "100%",
+            width: "100%",
+            objectFit: "cover",
+            borderRadius: theme.spacing(2),
+            zIndex: -2,
+            position: "relative",
+          }}
+        ></img>
+      </Box>
+
       <Box
         sx={{
           display: "flex",
