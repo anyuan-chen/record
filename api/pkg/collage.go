@@ -21,18 +21,7 @@ func (s *HttpService) ArtistCollage(w http.ResponseWriter, r *http.Request) {
 	if err != nil {
 		http.Error(w, err.Error(), http.StatusInternalServerError)
 	}
-	// img, _, err := image.Decode(bytes.NewReader(resp.GetImage()))
-	// if err != nil {
-	// 	http.Error(w, err.Error(), http.StatusInternalServerError)
-	// }
-	// out, _ := os.Create("./temp.png")
-	// defer out.Close()
-	// err = png.Encode(out, img)
-	// if err != nil {
-	// 	http.Error(w, err.Error(), http.StatusInternalServerError)
-	// }
-	// fileBytes, err := ioutil.ReadFile("./temp.png")
 	w.WriteHeader(http.StatusOK)
-	w.Header().Set("Content-Type", "application/octet-stream")
+	w.Header().Set("Content-Type", "image/jpeg")
 	w.Write(resp.GetImage())
 }

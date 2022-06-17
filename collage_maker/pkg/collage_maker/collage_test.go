@@ -44,14 +44,14 @@ func TestCreateCollage(t *testing.T) {
 	}
 	defer collage_maker.Close()
 	Manager := collage_maker_pb.NewImageProcessorClient(collage_maker)
-	sampleImageUrls := make([]*collage_maker_pb.ImageURL, 0, 4)
-	for i := 0; i < 4; i++ {
+	sampleImageUrls := make([]*collage_maker_pb.ImageURL, 0, 400)
+	for i := 0; i < 25; i++ {
 		sampleImageUrls = append(sampleImageUrls, &collage_maker_pb.ImageURL{ImageURL: "https://i.scdn.co/image/ab6761610000e5eba9989f6b9885c7aedc29c557"})
 	}
 	sampleData := &collage_maker_pb.Images{
-		RowCount:   2,
-		ColCount:   2,
-		TargetSize: 160,
+		RowCount:   5,
+		ColCount:   5,
+		TargetSize: 100,
 		Images:     sampleImageUrls,
 	}
 	img, err := Manager.GetCollage(context.Background(), sampleData)

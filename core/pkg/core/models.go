@@ -5,8 +5,8 @@ import (
 
 	"image"
 
+	"github.com/anyuan-chen/record/proto/pkg/collage_maker_pb"
 	"github.com/anyuan-chen/record/proto/pkg/core_pb"
-	"github.com/anyuan-chen/record/proto/pkg/image_processing_pb"
 	spotifyauth "github.com/zmb3/spotify/v2/auth"
 	"golang.org/x/oauth2"
 )
@@ -25,8 +25,8 @@ type Core interface {
 	GetPopularityScore(token oauth2.Token) (float64, error)
 }
 type CoreService struct {
-	Authenticator        *spotifyauth.Authenticator
-	ImageGeneratorClient image_processing_pb.ImageProcessorClient
+	Authenticator          *spotifyauth.Authenticator
+	CollageGeneratorClient collage_maker_pb.ImageProcessorClient
 	core_pb.UnimplementedCoreManagerServer
 }
 type GenreWithFrequency struct {

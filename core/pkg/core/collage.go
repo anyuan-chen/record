@@ -6,6 +6,7 @@ import (
 	"math"
 	"sort"
 
+	"github.com/anyuan-chen/record/proto/pkg/collage_maker_pb"
 	"github.com/anyuan-chen/record/proto/pkg/core_pb"
 	"github.com/zmb3/spotify/v2"
 	"golang.org/x/oauth2"
@@ -19,7 +20,7 @@ func (c *CoreService) GetTopArtistsCollage(ctx context.Context, token_json *core
 	if err != nil {
 		return nil, err
 	}
-	imageURLs := make([]spotify.Image, 0, len(artists.Artists))
+	imageURLs := make([]*collage_maker_pb.ImageURL, 0, len(artists.Artists))
 	for _, artist := range artists.Artists {
 		sort.Slice(artist.Images, func(i, j int) bool {
 			whDiffI := int(math.Abs(float64(artist.Images[i].Width - artist.Images[i].Height)))
@@ -33,17 +34,23 @@ func (c *CoreService) GetTopArtistsCollage(ctx context.Context, token_json *core
 			}
 		})
 		if len(artist.Images) != 0 {
-			imageURLs = append(imageURLs, artist.Images[0])
+			imageURLs = append(imageURLs, &collage_maker_pb.ImageURL{ImageURL: artist.Images[0].URL})
 		}
-		if len(imageURLs) == 3 {
+		if len(imageURLs) == 9 {
 			break
 		}
 	}
-
+	collageParameters := &collage_maker_pb.Images{
+		Images:     imageURLs,
+		RowCount:   3,
+		ColCount:   3,
+		TargetSize: 500,
+	}
+	resp, err := c.CollageGeneratorClient.GetCollage(context.Background(), collageParameters)
 	if err != nil {
 		return nil, err
 	}
-	return &core_pb.Image{}, nil
+	return &core_pb.Image{Image: resp.GetImage()}, nil
 }
 func (c *CoreService) GetTopAlbumsCollage(ctx context.Context, token_json *core_pb.Token) (*core_pb.Image, error) {
 	return &core_pb.Image{}, nil
