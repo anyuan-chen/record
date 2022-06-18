@@ -1,7 +1,7 @@
 import { Typography } from "@mui/material";
 import { Box } from "@mui/system";
 import theme from "../../styles/theme";
-const Showcase = ({ title, artist, album, track, src, sx }) => {
+const Showcase = ({ title, artist, genres, src, sx }) => {
   return (
     <Box
       sx={{
@@ -70,7 +70,9 @@ const Showcase = ({ title, artist, album, track, src, sx }) => {
         >
           <img src="/Album.svg" alt="album icon"></img>
           <Typography>
-            {album} - {track}
+            {genres.map((genre) => {
+              return <Typography component="span" variant="b1">{genre + " "}</Typography>;
+            })}
           </Typography>
         </Box>
       </Box>
@@ -85,8 +87,8 @@ const Showcase = ({ title, artist, album, track, src, sx }) => {
         src={src}
         alt="album"
         style={{
-          width: "550px",
-          height: "550px",
+          width: "450px",
+          height: "450px",
           right: 0,
           position: "absolute",
           top: theme.spacing(6),

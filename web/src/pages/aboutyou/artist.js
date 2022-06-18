@@ -8,7 +8,7 @@ import useFetch from "../../data/useFetch";
 import Loading from "../loading";
 
 const Artist = () => {
-  const { data, loading, error } = useFetch([
+  const { data, error, loading } = useFetch([
     {
       url: "http://localhost:8080/gettopartists",
       params: {
@@ -20,7 +20,7 @@ const Artist = () => {
   if (error) {
     console.log(error);
   }
-  console.log(data);
+
   return loading ? (
     <Loading></Loading>
   ) : (
@@ -46,10 +46,10 @@ const Artist = () => {
       >
         <Showcase
           title="your favorite artist:"
-          artist="Lonely Hearts Club and Band"
-          album="The Dust Album"
+          artist={data[0][0].name}
+          genres={data[0][0].genres}
           track="Hype"
-          src="/sample_album.png"
+          src={data[0][0].images[0].url}
         ></Showcase>
       </Box>
       <ProgressBar

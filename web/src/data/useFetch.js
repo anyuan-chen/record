@@ -4,7 +4,7 @@ import { Buffer } from "buffer";
 
 const useFetch = (requests) => {
   const [data, setData] = useState([]);
-  const [loading, setLoading] = useState(false);
+  const [loading, setLoading] = useState(true);
   const [error, setError] = useState(false);
   function determineResponseType(request) {
     if (request.responseType === "JPEG") {
