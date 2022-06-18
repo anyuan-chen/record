@@ -4,8 +4,26 @@ import theme from "../../styles/theme";
 import { Box } from "@mui/material";
 import ProgressBar from "../../components/progress_bar/progress_bar";
 import ProgressElement from "../../components/progress_bar/progress_element";
+import useFetch from "../../data/useFetch";
+import Loading from "../loading";
+
 const Artist = () => {
-  return (
+  const { data, loading, error } = useFetch([
+    {
+      url: "http://localhost:8080/gettopartists",
+      params: {
+        limit: 1,
+      },
+      responseType: "JSON",
+    },
+  ]);
+  if (error) {
+    console.log(error);
+  }
+  console.log(data);
+  return loading ? (
+    <Loading></Loading>
+  ) : (
     <Box
       sx={{
         maxWidth: "1100px",

@@ -4,12 +4,21 @@ import (
 	"context"
 	"fmt"
 	"net/http"
+	"strconv"
 
 	"github.com/anyuan-chen/record/proto/pkg/core_pb"
 	"github.com/anyuan-chen/record/proto/pkg/session_manager_pb"
 )
 
+type ListParams struct {
+	Limit int64
+}
+
 func (s *HttpService) TopArtists(w http.ResponseWriter, r *http.Request) {
+	limit, _ := strconv.ParseInt(r.URL.Query().Get("limit"), 10, 64)
+	params := ListParams{
+		Limit: limit,
+	}
 	session_id_cookie, err := r.Cookie("session_id")
 	if err != nil {
 		fmt.Println(err)
@@ -23,7 +32,7 @@ func (s *HttpService) TopArtists(w http.ResponseWriter, r *http.Request) {
 		return
 	}
 	//fmt.Print(session_token)
-	number_and_token := core_pb.NumberWithToken{Number: &core_pb.Number{Number: 5}, Token: session_token}
+	number_and_token := core_pb.NumberWithToken{Number: &core_pb.Number{Number: params.Limit}, Token: session_token}
 	fmt.Print(&number_and_token)
 	resp, err := s.Core_service.GetTopArtists(context.Background(), &number_and_token)
 	if err != nil {
@@ -35,6 +44,10 @@ func (s *HttpService) TopArtists(w http.ResponseWriter, r *http.Request) {
 }
 
 func (s *HttpService) TopSongs(w http.ResponseWriter, r *http.Request) {
+	limit, _ := strconv.ParseInt(r.URL.Query().Get("limit"), 10, 64)
+	params := ListParams{
+		Limit: limit,
+	}
 	session_id_cookie, err := r.Cookie("session_id")
 	if err != nil {
 		http.Error(w, "invalid session id", http.StatusBadRequest)
@@ -44,7 +57,7 @@ func (s *HttpService) TopSongs(w http.ResponseWriter, r *http.Request) {
 	if err != nil {
 		http.Error(w, "no session exists", http.StatusBadRequest)
 	}
-	number_and_token := core_pb.NumberWithToken{Number: &core_pb.Number{Number: 5}, Token: session_token}
+	number_and_token := core_pb.NumberWithToken{Number: &core_pb.Number{Number: params.Limit}, Token: session_token}
 	resp, err := s.Core_service.GetTopSongs(context.Background(), &number_and_token)
 	if err != nil {
 		http.Error(w, "grpc call failed T_T"+err.Error(), http.StatusBadRequest)
@@ -54,6 +67,10 @@ func (s *HttpService) TopSongs(w http.ResponseWriter, r *http.Request) {
 }
 
 func (s *HttpService) TopGenres(w http.ResponseWriter, r *http.Request) {
+	limit, _ := strconv.ParseInt(r.URL.Query().Get("limit"), 10, 64)
+	params := ListParams{
+		Limit: limit,
+	}
 	session_id_cookie, err := r.Cookie("session_id")
 	if err != nil {
 		http.Error(w, "invalid session id", http.StatusBadRequest)
@@ -77,8 +94,8 @@ func (s *HttpService) TopGenres(w http.ResponseWriter, r *http.Request) {
 // 	TopSongs(w http.ResponseWriter, r *http.Request)
 // 	TopGenres(w http.ResponseWriter, r *http.Request)
 
-// 	SongCollage(w http.ResponseWriter, r *http.Request)
-// 	ArtistCollage(w http.ResponseWriter, r *http.Request)
+// 	TopSongCollage(w http.ResponseWriter, r *http.Request)
+// 	TopArtistCollage(w http.ResponseWriter, r *http.Request)
 
 // 	AveragePopularity(w http.ResponseWriter, r *http.Request)
 // 	RecommendedSongs(w http.ResponseWriter, r *http.Request)

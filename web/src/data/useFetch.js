@@ -20,7 +20,7 @@ const useFetch = (requests) => {
         (await Buffer.from(response.data, "binary").toString("base64"))
       );
     } else if (request.responseType === "JSON") {
-      return await JSON.parse(response);
+      return response.data;
     }
   }
   useEffect(() => {

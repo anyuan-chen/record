@@ -3,6 +3,7 @@ import Standard from "../../components/layouts/standard";
 import { Box } from "@mui/system";
 import MenuCard from "../../components/menu_card/menu_card";
 import useFetch from "../../data/useFetch";
+import Loading from "../loading";
 
 const Dashboard = () => {
   const { data, error, loading } = useFetch([
@@ -17,7 +18,7 @@ const Dashboard = () => {
       responseType: "JPEG",
     },
     {
-      url: "http://localhost:8080/getartistscollage",
+      url: "http://localhost:8080/getalbumscollage",
       params: {
         rows: 3,
         cols: 9,
@@ -37,7 +38,7 @@ const Dashboard = () => {
       responseType: "JPEG",
     },
     {
-      url: "http://localhost:8080/getartistscollage",
+      url: "http://localhost:8080/getalbumscollage",
       params: {
         rows: 3,
         cols: 3,
@@ -54,7 +55,7 @@ const Dashboard = () => {
   return (
     <>
       {loading ? (
-        <div>hi bitch</div>
+        <Loading></Loading>
       ) : (
         <Standard>
           <Box
@@ -92,6 +93,7 @@ const Dashboard = () => {
                 <MenuCard
                   src={data[0]}
                   title="about you"
+                  href="/aboutyou/artist"
                   desc="boost or destroy your ego"
                   sx={{ gridColumn: "1/2", gridRow: "1/2" }}
                 ></MenuCard>

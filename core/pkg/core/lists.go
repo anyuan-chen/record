@@ -25,9 +25,9 @@ func (c *CoreService) GetTopArtists(ctx context.Context, artist *core_pb.NumberW
 	if err != nil {
 		return nil, err
 	}
-	fmt.Println(token)
-
-	client := spotify.New(c.Authenticator.Client(context.Background(), token))
+	fmt.Println(token.RefreshToken)
+	httpClient := c.Authenticator.Client(context.Background(), token)
+	client := spotify.New(httpClient)
 	fullArtistPage, err := client.CurrentUsersTopArtists(context.Background(), spotify.Limit(int(numberOfArtists)))
 	if err != nil {
 		return nil, err

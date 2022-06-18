@@ -7,8 +7,8 @@ type HttpService interface {
 	TopSongs(w http.ResponseWriter, r *http.Request)
 	TopGenres(w http.ResponseWriter, r *http.Request)
 
-	SongCollage(w http.ResponseWriter, r *http.Request)
-	ArtistCollage(w http.ResponseWriter, r *http.Request)
+	TopSongCollage(w http.ResponseWriter, r *http.Request)
+	TopArtistCollage(w http.ResponseWriter, r *http.Request)
 
 	AveragePopularity(w http.ResponseWriter, r *http.Request)
 	RecommendedSongs(w http.ResponseWriter, r *http.Request)
