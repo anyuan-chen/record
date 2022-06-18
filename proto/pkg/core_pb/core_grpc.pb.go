@@ -25,7 +25,7 @@ const _ = grpc.SupportPackageIsVersion7
 type CoreManagerClient interface {
 	GetTopArtists(ctx context.Context, in *NumberWithToken, opts ...grpc.CallOption) (*JSONResponse, error)
 	GetTopSongs(ctx context.Context, in *NumberWithToken, opts ...grpc.CallOption) (*JSONResponse, error)
-	GetTopGenres(ctx context.Context, in *Token, opts ...grpc.CallOption) (*JSONResponse, error)
+	GetTopGenres(ctx context.Context, in *NumberWithToken, opts ...grpc.CallOption) (*JSONResponse, error)
 	GetRecommendedSongs(ctx context.Context, in *NumberWithToken, opts ...grpc.CallOption) (*JSONResponse, error)
 	MakeRecommendedPlaylist(ctx context.Context, in *Token, opts ...grpc.CallOption) (*emptypb.Empty, error)
 	GetPopularityScore(ctx context.Context, in *Token, opts ...grpc.CallOption) (*FloatScore, error)
@@ -61,7 +61,7 @@ func (c *coreManagerClient) GetTopSongs(ctx context.Context, in *NumberWithToken
 	return out, nil
 }
 
-func (c *coreManagerClient) GetTopGenres(ctx context.Context, in *Token, opts ...grpc.CallOption) (*JSONResponse, error) {
+func (c *coreManagerClient) GetTopGenres(ctx context.Context, in *NumberWithToken, opts ...grpc.CallOption) (*JSONResponse, error) {
 	out := new(JSONResponse)
 	err := c.cc.Invoke(ctx, "/proto.CoreManager/GetTopGenres", in, out, opts...)
 	if err != nil {
@@ -139,7 +139,7 @@ func (c *coreManagerClient) GetRandomTopAlbumsCollage(ctx context.Context, in *C
 type CoreManagerServer interface {
 	GetTopArtists(context.Context, *NumberWithToken) (*JSONResponse, error)
 	GetTopSongs(context.Context, *NumberWithToken) (*JSONResponse, error)
-	GetTopGenres(context.Context, *Token) (*JSONResponse, error)
+	GetTopGenres(context.Context, *NumberWithToken) (*JSONResponse, error)
 	GetRecommendedSongs(context.Context, *NumberWithToken) (*JSONResponse, error)
 	MakeRecommendedPlaylist(context.Context, *Token) (*emptypb.Empty, error)
 	GetPopularityScore(context.Context, *Token) (*FloatScore, error)
@@ -160,7 +160,7 @@ func (UnimplementedCoreManagerServer) GetTopArtists(context.Context, *NumberWith
 func (UnimplementedCoreManagerServer) GetTopSongs(context.Context, *NumberWithToken) (*JSONResponse, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method GetTopSongs not implemented")
 }
-func (UnimplementedCoreManagerServer) GetTopGenres(context.Context, *Token) (*JSONResponse, error) {
+func (UnimplementedCoreManagerServer) GetTopGenres(context.Context, *NumberWithToken) (*JSONResponse, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method GetTopGenres not implemented")
 }
 func (UnimplementedCoreManagerServer) GetRecommendedSongs(context.Context, *NumberWithToken) (*JSONResponse, error) {
@@ -234,7 +234,7 @@ func _CoreManager_GetTopSongs_Handler(srv interface{}, ctx context.Context, dec 
 }
 
 func _CoreManager_GetTopGenres_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
-	in := new(Token)
+	in := new(NumberWithToken)
 	if err := dec(in); err != nil {
 		return nil, err
 	}
@@ -246,7 +246,7 @@ func _CoreManager_GetTopGenres_Handler(srv interface{}, ctx context.Context, dec
 		FullMethod: "/proto.CoreManager/GetTopGenres",
 	}
 	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
-		return srv.(CoreManagerServer).GetTopGenres(ctx, req.(*Token))
+		return srv.(CoreManagerServer).GetTopGenres(ctx, req.(*NumberWithToken))
 	}
 	return interceptor(ctx, in, info, handler)
 }

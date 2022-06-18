@@ -80,7 +80,11 @@ func (s *HttpService) TopGenres(w http.ResponseWriter, r *http.Request) {
 	if err != nil {
 		http.Error(w, "no session exists", http.StatusBadRequest)
 	}
-	resp, err := s.Core_service.GetTopGenres(context.Background(), session_token)
+	getTopGenresParams := core_pb.NumberWithToken{
+		Number: &core_pb.Number{Number: params.Limit},
+		Token:  session_token,
+	}
+	resp, err := s.Core_service.GetTopGenres(context.Background(), &getTopGenresParams)
 	if err != nil {
 		http.Error(w, "grpc call failed T_T"+err.Error(), http.StatusBadRequest)
 	}

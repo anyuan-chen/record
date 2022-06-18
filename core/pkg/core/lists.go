@@ -55,11 +55,11 @@ func (c *CoreService) GetTopSongs(ctx context.Context, track *core_pb.NumberWith
 	return &core_pb.JSONResponse{Data: songs_json}, nil
 }
 
-func (c *CoreService) GetTopGenres(ctx context.Context, token_json *core_pb.Token) (*core_pb.JSONResponse, error) {
+func (c *CoreService) GetTopGenres(ctx context.Context, number_and_token *core_pb.NumberWithToken) (*core_pb.JSONResponse, error) {
 	var token = &oauth2.Token{}
-	json.Unmarshal(token_json.Token, token)
+	json.Unmarshal(number_and_token.Token.Token, token)
 	client := spotify.New(c.Authenticator.Client(context.Background(), token))
-	fullSongsPage, err := client.CurrentUsersTopTracks(context.Background(), spotify.Limit(50))
+	fullSongsPage, err := client.CurrentUsersTopTracks(context.Background(), spotify.Limit(9))
 	if err != nil {
 		return nil, err
 	}
@@ -82,11 +82,12 @@ func (c *CoreService) GetTopGenres(ctx context.Context, token_json *core_pb.Toke
 	//fmt.Print(genreFrequency)
 	topGenres := make([]GenreWithFrequency, 0, len(genreFrequency))
 	for key, value := range genreFrequency {
-		topGenres = append(topGenres, GenreWithFrequency{Frequency: value, Genre: key})
+		topGenres = append(topGenres, GenreWithFrequency{Frequency: value, Total: 9, Genre: key})
 	}
 	sort.Slice(topGenres, func(i, j int) bool {
 		return topGenres[i].Frequency > topGenres[j].Frequency
 	})
+	topGenres = topGenres[0:number_and_token.Number.Number]
 	topGenres_json, err := json.Marshal(topGenres)
 	fmt.Print(topGenres)
 	if err != nil {

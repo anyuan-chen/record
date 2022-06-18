@@ -31,5 +31,6 @@ type CoreService struct {
 }
 type GenreWithFrequency struct {
 	Frequency int    `json:"frequency"`
+	Total     int    `json:"total"`
 	Genre     string `json:"genre"`
 }

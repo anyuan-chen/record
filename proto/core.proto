@@ -32,7 +32,7 @@ message CollageInfoAndToken {
 service CoreManager {
     rpc GetTopArtists(NumberWithToken) returns (JSONResponse){}
 	rpc GetTopSongs(NumberWithToken) returns (JSONResponse){}
-	rpc GetTopGenres(Token) returns (JSONResponse){}
+	rpc GetTopGenres(NumberWithToken) returns (JSONResponse){}
 
     rpc GetRecommendedSongs(NumberWithToken) returns (JSONResponse){}
     rpc MakeRecommendedPlaylist(Token) returns(google.protobuf.Empty){}

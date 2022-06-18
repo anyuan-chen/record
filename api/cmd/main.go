@@ -34,7 +34,7 @@ func main() {
 	r.HandleFunc("/login", service.SpotifyLogin)
 	r.HandleFunc("/callback", service.SpotifyCallback)
 	r.HandleFunc("/gettopartists", service.TopArtists)
-	r.HandleFunc("/gettopsongs", service.TopSongs)
+	r.HandleFunc("/gettoptracks", service.TopSongs)
 	r.HandleFunc("/gettopgenres", service.TopGenres)
 	r.HandleFunc("/getrecommendedsongs", service.RecommendedSongs)
 	r.HandleFunc("/makerecommendedplaylist", service.MakeRecommendedPlaylist)

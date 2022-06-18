@@ -33,7 +33,7 @@ func DefaultSeedProfile(c *CoreService, token *oauth2.Token) (spotify.Seeds, err
 		return spotify.Seeds{}, err
 	}
 	var genres []GenreWithFrequency
-	genres_json, err := c.GetTopGenres(context.Background(), &core_pb.Token{Token: token_json})
+	genres_json, err := c.GetTopGenres(context.Background(), &core_pb.NumberWithToken{Number: &core_pb.Number{Number: 5}, Token: &core_pb.Token{Token: token_json}})
 	if err != nil {
 		return spotify.Seeds{}, err
 	}
