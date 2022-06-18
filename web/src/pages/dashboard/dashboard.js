@@ -12,7 +12,7 @@ const Dashboard = () => {
         rows: 3,
         cols: 3,
         size: 300,
-        random: true,
+        random: false,
       },
       responseType: "JPEG",
     },
@@ -22,27 +22,7 @@ const Dashboard = () => {
         rows: 3,
         cols: 9,
         size: 300,
-        random: true,
-      },
-      responseType: "JPEG",
-    },
-    {
-      url: "http://localhost:8080/getartistscollage",
-      params: {
-        rows: 3,
-        cols: 9,
-        size: 300,
-        random: true,
-      },
-      responseType: "JPEG",
-    },
-    {
-      url: "http://localhost:8080/getartistscollage",
-      params: {
-        rows: 3,
-        cols: 3,
-        size: 300,
-        random: true,
+        random: false,
       },
       responseType: "JPEG",
     },
@@ -102,13 +82,13 @@ const Dashboard = () => {
                   sx={{ gridColumn: "2/4", gridRow: "1/2" }}
                 ></MenuCard>
                 <MenuCard
-                  src={data[2]}
+                  src="/sample_album.png"
                   title="explorer"
                   desc="find more about your favorite song"
                   sx={{ gridColumn: "1/3", gridRow: "2/3" }}
                 ></MenuCard>
                 <MenuCard
-                  src={data[3]}
+                  src="/sample_album.png"
                   title="log out"
                   desc="T_T pls come back soon"
                   sx={{ gridColumn: "3/4", gridRow: "2/3" }}

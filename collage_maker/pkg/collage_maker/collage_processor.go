@@ -41,7 +41,7 @@ func Height(image image.Image) uint {
 	return uint(image.Bounds().Max.Y - image.Bounds().Min.Y)
 }
 func CreateCollage(rowNum int, colNum int, images []image.Image, heightOfImage int, widthOfImage int) *Collage {
-	bottomRightPoint := image.Point{widthOfImage * colNum, heightOfImage * rowNum}
+	bottomRightPoint := image.Point{heightOfImage * rowNum, widthOfImage * colNum}
 	output := Collage{image.NewRGBA(image.Rectangle{image.Point{0, 0}, bottomRightPoint})}
 	row := 1
 	col := 1
