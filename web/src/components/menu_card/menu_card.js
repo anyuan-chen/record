@@ -15,6 +15,7 @@ const MenuCard = ({ src, title, desc, sx, href }) => {
         flexDirection: "column",
         rowGap: theme.spacing(2),
         cursor: "pointer",
+        boxShadow: "0px 0px 4px " + theme.palette.bgPrimary.darker,
         alignItems: "start",
         ...sx,
       }}
