@@ -25,7 +25,7 @@ const TrackCard = ({ src, title, desc, href, sx }) => {
           background: theme.palette.bgSecondary.main,
           width: "100%",
           height: "100%",
-          py: theme.spacing(6),
+          py: theme.spacing(4),
           cursor: "pointer",
           px: theme.spacing(4),
           borderRadius: theme.spacing(4),
@@ -47,15 +47,15 @@ const TrackCard = ({ src, title, desc, href, sx }) => {
           alt="menu_item_caption"
           style={{
             width: "100%",
-            height: "70%",
+            height: "100%",
             objectFit: "cover",
             borderRadius: "32px",
           }}
         ></img>
 
-        <Box sx={{ display: "flex", justifyContent: "space-between" }} component={motion.div}>
+        <Box sx={{ display: "flex", justifyContent: "space-between", alignItems: "center" }} component={motion.div}>
           <Typography
-            variant="h3"
+            variant="b1"
             component="h2"
             sx={{ color: "white", fontWeight: "bold", textDecoration: "none" }}
           >

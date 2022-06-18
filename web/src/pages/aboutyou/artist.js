@@ -55,7 +55,7 @@ const Artist = () => {
       <ProgressBar
         sx={{ position: "absolute", bottom: theme.spacing(6), right: "-100px" }}
       >
-        <ProgressElement href="/">home</ProgressElement>
+        <ProgressElement href="/dashboard">home</ProgressElement>
         <ProgressElement activated href="/aboutyou/artist">
           your artist
         </ProgressElement>

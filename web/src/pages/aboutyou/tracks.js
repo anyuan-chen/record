@@ -4,9 +4,26 @@ import theme from "../../styles/theme";
 import ProgressBar from "../../components/progress_bar/progress_bar";
 import ProgressElement from "../../components/progress_bar/progress_element";
 import TrackCard from "../../components/track_card/track_card";
+import useFetch from "../../data/useFetch";
+import Loading from "../loading";
 
 const Tracks = () => {
-  return (
+  const { data, error, loading } = useFetch([
+    {
+      url: "http://localhost:8080/gettoptracks",
+      params: {
+        limit: 3,
+      },
+      responseType: "JSON",
+    },
+  ]);
+  if (error) {
+    console.log(error);
+  }
+  console.log(data);
+  return loading ? (
+    <Loading></Loading>
+  ) : (
     <Box
       sx={{
         maxWidth: "1100px",
@@ -36,30 +53,22 @@ const Tracks = () => {
             backgroundColor: theme.palette.bgSecondary.main,
           }}
         >
-          <TrackCard
-            src="/sample_album.png"
-            title="hi"
-            desc="hi"
-            href="https://google.com"
-          ></TrackCard>
-          <TrackCard
-            src="/sample_album.png"
-            title="hi"
-            desc="hi"
-            href="https://google.com"
-          ></TrackCard>
-          <TrackCard
-            src="/sample_album.png"
-            title="hi"
-            desc="hi"
-            href="https://google.com"
-          ></TrackCard>
+          {data[0].map((track) => {
+            return (
+              <TrackCard
+                src={track.album.images[0].url}
+                title={track.name}
+                desc={track.album.name}
+                href={track.uri}
+              ></TrackCard>
+            );
+          })}
         </Box>
       </Box>
       <ProgressBar
         sx={{ position: "absolute", bottom: theme.spacing(6), right: "-100px" }}
       >
-        <ProgressElement href="/">home</ProgressElement>
+        <ProgressElement href="/dashboard">home</ProgressElement>
         <ProgressElement href="/aboutyou/artist">your artist</ProgressElement>
         <ProgressElement activated href="/aboutyou/tracks">
           your tracks

@@ -106,6 +106,7 @@ const Dashboard = () => {
                 <MenuCard
                   src={data[2]}
                   title="explorer"
+                  href="/search"
                   desc="find more about your favorite song"
                   sx={{ gridColumn: "1/3", gridRow: "2/3" }}
                 ></MenuCard>

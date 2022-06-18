@@ -19,7 +19,7 @@ const ProgressElement = ({ activated, children, href }) => {
   };
 
   return (
-    <Link to={href}>
+    <a href={href}>
       <Box
         sx={activated ? activatedSx : unactivatedSx}
         component={motion.div}
@@ -29,7 +29,7 @@ const ProgressElement = ({ activated, children, href }) => {
           {children}
         </Typography>
       </Box>
-    </Link>
+    </a>
   );
 };
 export default ProgressElement;

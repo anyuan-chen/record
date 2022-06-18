@@ -5,8 +5,26 @@ import ProgressBar from "../../components/progress_bar/progress_bar";
 import ProgressElement from "../../components/progress_bar/progress_element";
 import Graph from "../../components/bar_graph/graph";
 import GraphItem from "../../components/bar_graph/item";
+import Loading from "../loading";
+import useFetch from "../../data/useFetch";
+
 const Genres = () => {
-  return (
+  const { data, error, loading } = useFetch([
+    {
+      url: "http://localhost:8080/gettopgenres",
+      params: {
+        limit: 5,
+      },
+      responseType: "JSON",
+    },
+  ]);
+  if (error) {
+    console.log(error);
+  }
+  console.log(data);
+  return loading ? (
+    <Loading></Loading>
+  ) : (
     <Box
       sx={{
         maxWidth: "1100px",
@@ -39,38 +57,29 @@ const Genres = () => {
         >
           <Box sx={{ display: "flex", pt: theme.spacing(6) }}>
             <Typography variant="h3" sx={{ fontWeight: "bold" }}>
-              Your favorite genre is <span style={{ color: "white" }}>pop</span>{" "}
-              which appears in a respectable 84% of tracks.
+              Your favorite genre is{" "}
+              <span style={{ color: "white" }}>{data[0][0].genre}</span> which
+              appears in a respectable{" "}
+              {Math.round((data[0][0].frequency / data[0][0].total) * 100)}% of
+              tracks.
             </Typography>
           </Box>
           <Graph>
-            <GraphItem
-              title="Pop"
-              percentage={34}
-              height={theme.spacing(5)}
-            ></GraphItem>
-            <GraphItem
-              title="Pop"
-              percentage={34}
-              height={theme.spacing(5)}
-            ></GraphItem>
-            <GraphItem
-              title="Pop"
-              percentage={34}
-              height={theme.spacing(5)}
-            ></GraphItem>
-            <GraphItem
-              title="Pop"
-              percentage={34}
-              height={theme.spacing(5)}
-            ></GraphItem>
+            {data[0].slice(1).map((genre) => {
+              return (
+                <GraphItem
+                  title={genre.genre}
+                  percentage={Math.round((genre.frequency / genre.total) * 100)}
+                ></GraphItem>
+              );
+            })}
           </Graph>
         </Box>
       </Box>
       <ProgressBar
         sx={{ position: "absolute", bottom: theme.spacing(6), right: "-100px" }}
       >
-        <ProgressElement href="/">home</ProgressElement>
+        <ProgressElement href="/dashboard">home</ProgressElement>
 
         <ProgressElement href="/aboutyou/artist">your artist</ProgressElement>
         <ProgressElement href="/aboutyou/tracks">your tracks</ProgressElement>
