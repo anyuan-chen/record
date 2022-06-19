@@ -7,17 +7,17 @@ import Graph from "../../components/bar_graph/graph";
 import GraphItem from "../../components/bar_graph/item";
 import Loading from "../loading";
 import useFetch from "../../data/useFetch";
-
-const Genres = () => {
-  const { data, error, loading } = useFetch([
-    {
-      url: "http://localhost:8080/gettopgenres",
-      params: {
-        limit: 5,
-      },
-      responseType: "JSON",
+const req = [
+  {
+    url: "http://localhost:8080/gettopgenres",
+    params: {
+      limit: 5,
     },
-  ]);
+    responseType: "JSON",
+  },
+];
+const Genres = () => {
+  const { data, error, loading } = useFetch(req);
   if (error) {
     console.log(error);
   }

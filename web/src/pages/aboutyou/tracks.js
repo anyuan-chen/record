@@ -6,17 +6,17 @@ import ProgressElement from "../../components/progress_bar/progress_element";
 import TrackCard from "../../components/track_card/track_card";
 import useFetch from "../../data/useFetch";
 import Loading from "../loading";
-
-const Tracks = () => {
-  const { data, error, loading } = useFetch([
-    {
-      url: "http://localhost:8080/gettoptracks",
-      params: {
-        limit: 3,
-      },
-      responseType: "JSON",
+const req = [
+  {
+    url: "http://localhost:8080/gettoptracks",
+    params: {
+      limit: 3,
     },
-  ]);
+    responseType: "JSON",
+  },
+];
+const Tracks = () => {
+  const { data, error, loading } = useFetch(req);
   if (error) {
     console.log(error);
   }

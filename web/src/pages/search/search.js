@@ -87,10 +87,11 @@ const Search = () => {
                       ""
                     )}
                     src={searchResult.album.images[0].url}
+                    href={"/track?id=" + searchResult.id}
                   ></SearchCard>
                 );
               })}
-            {(loading || error) && <Box sx={{width: "100%"}}>&nbsp;</Box>}
+            {(loading || error) && <Box sx={{ width: "100%" }}>&nbsp;</Box>}
           </Box>
         </Box>
       </Box>

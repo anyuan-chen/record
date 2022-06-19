@@ -6,17 +6,17 @@ import ProgressBar from "../../components/progress_bar/progress_bar";
 import ProgressElement from "../../components/progress_bar/progress_element";
 import useFetch from "../../data/useFetch";
 import Loading from "../loading";
-
-const Artist = () => {
-  const { data, error, loading } = useFetch([
-    {
-      url: "http://localhost:8080/gettopartists",
-      params: {
-        limit: 1,
-      },
-      responseType: "JSON",
+const req = [
+  {
+    url: "http://localhost:8080/gettopartists",
+    params: {
+      limit: 1,
     },
-  ]);
+    responseType: "JSON",
+  },
+];
+const Artist = () => {
+  const { data, error, loading } = useFetch(req);
   if (error) {
     console.log(error);
   }

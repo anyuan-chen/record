@@ -115,6 +115,7 @@ const Dashboard = () => {
                   title="log out"
                   desc="T_T pls come back soon"
                   sx={{ gridColumn: "3/4", gridRow: "2/3" }}
+                  
                 ></MenuCard>
               </Box>
             </Box>

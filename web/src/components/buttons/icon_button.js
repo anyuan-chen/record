@@ -18,7 +18,7 @@ const boxVariants = {
     color: theme.palette.bgPrimary.main,
   },
 };
-const IconButton = ({ src, children, onClick, href }) => {
+const IconButton = ({ src, children, onClick, href, textVariant, textSx }) => {
   return (
     <motion.a href={href}>
       <Box
@@ -47,7 +47,11 @@ const IconButton = ({ src, children, onClick, href }) => {
         ) : (
           <></>
         )}
-        <Typography variant="h4" component="h3">
+        <Typography
+          variant={textVariant ? textVariant : "h4"}
+          component="h3"
+          sx={textSx}
+        >
           {children}
         </Typography>
       </Box>

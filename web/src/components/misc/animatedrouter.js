@@ -5,6 +5,7 @@ import Dashboard from "../../pages/dashboard/dashboard";
 import Search from "../../pages/search/search";
 import AboutYouLayout from "../../pages/aboutyou/aboutRouter";
 import Recommendations from "../../pages/recommendations/recommendations";
+import Song from "../../pages/song/song";
 const AnimatedRouter = () => {
   const location = useLocation();
   return (
@@ -21,6 +22,7 @@ const AnimatedRouter = () => {
           path="/recommendations"
           element={<Recommendations></Recommendations>}
         ></Route>
+        <Route path="/track" element={<Song></Song>}></Route>
       </Routes>
     </AnimatePresence>
   );
