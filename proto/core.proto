@@ -34,6 +34,10 @@ message CollageInfoAndToken {
     int64 size = 3;
     Token token = 4;
 }
+message IDWithToken {
+    string id = 1;
+    Token token = 2;
+}
 service CoreManager {
     rpc GetTopArtists(NumberWithToken) returns (JSONResponse){}
 	rpc GetTopSongs(NumberWithToken) returns (JSONResponse){}
@@ -50,6 +54,8 @@ service CoreManager {
     rpc GetRandomTopAlbumsCollage(CollageInfoAndToken) returns (Image){}
 
     rpc Search(QueryWithToken) returns (JSONResponse){}
+    rpc GetSongInfo(IDWithToken) returns (JSONResponse){}
+    rpc GetSongAudioFeatures(IDWithToken) returns (JSONResponse){}
 }
 
 // protoc -I=. --go_out=./pkg/core_pb --go_opt=paths=source_relative \

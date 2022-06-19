@@ -16,7 +16,7 @@ type SearchParams struct {
 
 func (s *HttpService) Search(w http.ResponseWriter, r *http.Request) {
 	query := r.URL.Query().Get("query")
-	queryType := r.URL.Query()["queryType"]
+	queryType := r.URL.Query()["queryType[]"]
 	session_id_cookie, err := r.Cookie("session_id")
 	if err != nil {
 		http.Error(w, err.Error(), http.StatusUnauthorized)

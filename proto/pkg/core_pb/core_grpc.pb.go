@@ -34,6 +34,8 @@ type CoreManagerClient interface {
 	GetRandomTopArtistsCollage(ctx context.Context, in *CollageInfoAndToken, opts ...grpc.CallOption) (*Image, error)
 	GetRandomTopAlbumsCollage(ctx context.Context, in *CollageInfoAndToken, opts ...grpc.CallOption) (*Image, error)
 	Search(ctx context.Context, in *QueryWithToken, opts ...grpc.CallOption) (*JSONResponse, error)
+	GetSongInfo(ctx context.Context, in *IDWithToken, opts ...grpc.CallOption) (*JSONResponse, error)
+	GetSongAudioFeatures(ctx context.Context, in *IDWithToken, opts ...grpc.CallOption) (*JSONResponse, error)
 }
 
 type coreManagerClient struct {
@@ -143,6 +145,24 @@ func (c *coreManagerClient) Search(ctx context.Context, in *QueryWithToken, opts
 	return out, nil
 }
 
+func (c *coreManagerClient) GetSongInfo(ctx context.Context, in *IDWithToken, opts ...grpc.CallOption) (*JSONResponse, error) {
+	out := new(JSONResponse)
+	err := c.cc.Invoke(ctx, "/proto.CoreManager/GetSongInfo", in, out, opts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
+func (c *coreManagerClient) GetSongAudioFeatures(ctx context.Context, in *IDWithToken, opts ...grpc.CallOption) (*JSONResponse, error) {
+	out := new(JSONResponse)
+	err := c.cc.Invoke(ctx, "/proto.CoreManager/GetSongAudioFeatures", in, out, opts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
 // CoreManagerServer is the server API for CoreManager service.
 // All implementations must embed UnimplementedCoreManagerServer
 // for forward compatibility
@@ -158,6 +178,8 @@ type CoreManagerServer interface {
 	GetRandomTopArtistsCollage(context.Context, *CollageInfoAndToken) (*Image, error)
 	GetRandomTopAlbumsCollage(context.Context, *CollageInfoAndToken) (*Image, error)
 	Search(context.Context, *QueryWithToken) (*JSONResponse, error)
+	GetSongInfo(context.Context, *IDWithToken) (*JSONResponse, error)
+	GetSongAudioFeatures(context.Context, *IDWithToken) (*JSONResponse, error)
 	mustEmbedUnimplementedCoreManagerServer()
 }
 
@@ -197,6 +219,12 @@ func (UnimplementedCoreManagerServer) GetRandomTopAlbumsCollage(context.Context,
 }
 func (UnimplementedCoreManagerServer) Search(context.Context, *QueryWithToken) (*JSONResponse, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method Search not implemented")
+}
+func (UnimplementedCoreManagerServer) GetSongInfo(context.Context, *IDWithToken) (*JSONResponse, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method GetSongInfo not implemented")
+}
+func (UnimplementedCoreManagerServer) GetSongAudioFeatures(context.Context, *IDWithToken) (*JSONResponse, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method GetSongAudioFeatures not implemented")
 }
 func (UnimplementedCoreManagerServer) mustEmbedUnimplementedCoreManagerServer() {}
 
@@ -409,6 +437,42 @@ func _CoreManager_Search_Handler(srv interface{}, ctx context.Context, dec func(
 	return interceptor(ctx, in, info, handler)
 }
 
+func _CoreManager_GetSongInfo_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(IDWithToken)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(CoreManagerServer).GetSongInfo(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: "/proto.CoreManager/GetSongInfo",
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(CoreManagerServer).GetSongInfo(ctx, req.(*IDWithToken))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
+func _CoreManager_GetSongAudioFeatures_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(IDWithToken)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(CoreManagerServer).GetSongAudioFeatures(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: "/proto.CoreManager/GetSongAudioFeatures",
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(CoreManagerServer).GetSongAudioFeatures(ctx, req.(*IDWithToken))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
 // CoreManager_ServiceDesc is the grpc.ServiceDesc for CoreManager service.
 // It's only intended for direct use with grpc.RegisterService,
 // and not to be introspected or modified (even as a copy)
@@ -459,6 +523,14 @@ var CoreManager_ServiceDesc = grpc.ServiceDesc{
 		{
 			MethodName: "Search",
 			Handler:    _CoreManager_Search_Handler,
+		},
+		{
+			MethodName: "GetSongInfo",
+			Handler:    _CoreManager_GetSongInfo_Handler,
+		},
+		{
+			MethodName: "GetSongAudioFeatures",
+			Handler:    _CoreManager_GetSongAudioFeatures_Handler,
 		},
 	},
 	Streams:  []grpc.StreamDesc{},
