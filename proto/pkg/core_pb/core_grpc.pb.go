@@ -33,6 +33,7 @@ type CoreManagerClient interface {
 	GetTopAlbumsCollage(ctx context.Context, in *CollageInfoAndToken, opts ...grpc.CallOption) (*Image, error)
 	GetRandomTopArtistsCollage(ctx context.Context, in *CollageInfoAndToken, opts ...grpc.CallOption) (*Image, error)
 	GetRandomTopAlbumsCollage(ctx context.Context, in *CollageInfoAndToken, opts ...grpc.CallOption) (*Image, error)
+	Search(ctx context.Context, in *QueryWithToken, opts ...grpc.CallOption) (*JSONResponse, error)
 }
 
 type coreManagerClient struct {
@@ -133,6 +134,15 @@ func (c *coreManagerClient) GetRandomTopAlbumsCollage(ctx context.Context, in *C
 	return out, nil
 }
 
+func (c *coreManagerClient) Search(ctx context.Context, in *QueryWithToken, opts ...grpc.CallOption) (*JSONResponse, error) {
+	out := new(JSONResponse)
+	err := c.cc.Invoke(ctx, "/proto.CoreManager/Search", in, out, opts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
 // CoreManagerServer is the server API for CoreManager service.
 // All implementations must embed UnimplementedCoreManagerServer
 // for forward compatibility
@@ -147,6 +157,7 @@ type CoreManagerServer interface {
 	GetTopAlbumsCollage(context.Context, *CollageInfoAndToken) (*Image, error)
 	GetRandomTopArtistsCollage(context.Context, *CollageInfoAndToken) (*Image, error)
 	GetRandomTopAlbumsCollage(context.Context, *CollageInfoAndToken) (*Image, error)
+	Search(context.Context, *QueryWithToken) (*JSONResponse, error)
 	mustEmbedUnimplementedCoreManagerServer()
 }
 
@@ -183,6 +194,9 @@ func (UnimplementedCoreManagerServer) GetRandomTopArtistsCollage(context.Context
 }
 func (UnimplementedCoreManagerServer) GetRandomTopAlbumsCollage(context.Context, *CollageInfoAndToken) (*Image, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method GetRandomTopAlbumsCollage not implemented")
+}
+func (UnimplementedCoreManagerServer) Search(context.Context, *QueryWithToken) (*JSONResponse, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method Search not implemented")
 }
 func (UnimplementedCoreManagerServer) mustEmbedUnimplementedCoreManagerServer() {}
 
@@ -377,6 +391,24 @@ func _CoreManager_GetRandomTopAlbumsCollage_Handler(srv interface{}, ctx context
 	return interceptor(ctx, in, info, handler)
 }
 
+func _CoreManager_Search_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(QueryWithToken)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(CoreManagerServer).Search(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: "/proto.CoreManager/Search",
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(CoreManagerServer).Search(ctx, req.(*QueryWithToken))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
 // CoreManager_ServiceDesc is the grpc.ServiceDesc for CoreManager service.
 // It's only intended for direct use with grpc.RegisterService,
 // and not to be introspected or modified (even as a copy)
@@ -423,6 +455,10 @@ var CoreManager_ServiceDesc = grpc.ServiceDesc{
 		{
 			MethodName: "GetRandomTopAlbumsCollage",
 			Handler:    _CoreManager_GetRandomTopAlbumsCollage_Handler,
+		},
+		{
+			MethodName: "Search",
+			Handler:    _CoreManager_Search_Handler,
 		},
 	},
 	Streams:  []grpc.StreamDesc{},

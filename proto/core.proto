@@ -23,6 +23,11 @@ message FloatScore {
 message Image {
     bytes image = 1;
 }
+message QueryWithToken {
+    string query = 1;
+    repeated string types = 2;
+    Token token = 3;
+}
 message CollageInfoAndToken {
     int64 rows = 1;
     int64 cols = 2;
@@ -43,6 +48,8 @@ service CoreManager {
 
     rpc GetRandomTopArtistsCollage(CollageInfoAndToken) returns (Image){}
     rpc GetRandomTopAlbumsCollage(CollageInfoAndToken) returns (Image){}
+
+    rpc Search(QueryWithToken) returns (JSONResponse){}
 }
 
 // protoc -I=. --go_out=./pkg/core_pb --go_opt=paths=source_relative \

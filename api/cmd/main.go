@@ -41,6 +41,7 @@ func main() {
 	r.HandleFunc("/getpopularity", service.AveragePopularity)
 	r.HandleFunc("/getartistscollage", service.TopArtistCollage)
 	r.HandleFunc("/getalbumscollage", service.TopAlbumsCollage)
+	r.HandleFunc("/search", service.Search)
 	http.Handle("/", &Server{r: r})
 	http.ListenAndServe(":8080", nil)
 }

@@ -16,4 +16,6 @@ type HttpService interface {
 	
 	SpotifyLogin(w http.ResponseWriter, r *http.Request)
 	SpotifyCallback(w http.ResponseWriter, r *http.Request)
+
+	Search(w http.ResponseWriter, r *http.Request)
 }
