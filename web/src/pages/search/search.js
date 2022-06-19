@@ -4,7 +4,25 @@ import theme from "../../styles/theme";
 import { Typography } from "@mui/material";
 import SearchBar from "../../components/search_bar/search_bar";
 import SearchCard from "../../components/search_card/search_card";
+import { useState } from "react";
+import useFetch from "../../data/useFetch";
+
 const Search = () => {
+  const [req, setReq] = useState([
+    {
+      url: "http://localhost:8080/search",
+      params: {
+        query: "",
+        queryType: ["track", "artist"],
+      },
+      responseType: "JSON",
+    },
+  ]);
+  const { data, error, loading } = useFetch(req);
+  if (error) {
+    console.log(error);
+  }
+  console.log(data);
   return (
     <Standard>
       <Box
@@ -16,7 +34,7 @@ const Search = () => {
       >
         <Box
           sx={{
-            maxWidth: "1100px",
+            width: "1100px",
             display: "flex",
             flexDirection: "column",
             py: theme.spacing(6),
@@ -30,7 +48,21 @@ const Search = () => {
           >
             search
           </Typography>
-          <SearchBar></SearchBar>
+          <SearchBar
+            value={req[0].params.query}
+            setValue={(val) => {
+              setReq([
+                {
+                  ...req[0],
+                  params: {
+                    ...req[0].params,
+                    query: val,
+                  },
+                },
+              ]);
+              console.log(req);
+            }}
+          ></SearchBar>
           <Box
             sx={{
               display: "grid",
@@ -44,32 +76,21 @@ const Search = () => {
             }}
             className="scroll_bar"
           >
-            <SearchCard
-              src="./sample_album.png"
-              title="Kanye"
-              desc="kanye"
-            ></SearchCard>
-            <SearchCard
-              src="./sample_album.png"
-              title="Kanye"
-              desc="kanye"
-            ></SearchCard>
-            <SearchCard
-              src="./sample_album.png"
-              title="Kanye"
-              desc="kanye"
-            ></SearchCard>
-            <SearchCard
-              src="./sample_album.png"
-              title="Kanye"
-              desc="kanye"
-            ></SearchCard>
-            <SearchCard
-              src="./sample_album.png"
-              title="Kanye"
-              desc="kanye"
-              href="http://google.com"
-            ></SearchCard>
+            {!loading &&
+              !error &&
+              data[0].tracks.items.map((searchResult) => {
+                return (
+                  <SearchCard
+                    title={searchResult.name}
+                    desc={searchResult.album.artists.reduce(
+                      (prev, cur) => prev + " " + cur.name,
+                      ""
+                    )}
+                    src={searchResult.album.images[0].url}
+                  ></SearchCard>
+                );
+              })}
+            {(loading || error) && <Box sx={{width: "100%"}}>&nbsp;</Box>}
           </Box>
         </Box>
       </Box>

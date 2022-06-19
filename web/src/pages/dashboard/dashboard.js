@@ -4,50 +4,50 @@ import { Box } from "@mui/system";
 import MenuCard from "../../components/menu_card/menu_card";
 import useFetch from "../../data/useFetch";
 import Loading from "../loading";
-
+const req = [
+  {
+    url: "http://localhost:8080/getartistscollage",
+    params: {
+      rows: 3,
+      cols: 3,
+      size: 300,
+      random: true,
+    },
+    responseType: "JPEG",
+  },
+  {
+    url: "http://localhost:8080/getalbumscollage",
+    params: {
+      rows: 3,
+      cols: 9,
+      size: 300,
+      random: true,
+    },
+    responseType: "JPEG",
+  },
+  {
+    url: "http://localhost:8080/getartistscollage",
+    params: {
+      rows: 3,
+      cols: 9,
+      size: 300,
+      random: true,
+    },
+    responseType: "JPEG",
+  },
+  {
+    url: "http://localhost:8080/getalbumscollage",
+    params: {
+      rows: 3,
+      cols: 3,
+      size: 300,
+      random: true,
+    },
+    responseType: "JPEG",
+  },
+];
 const Dashboard = () => {
-  const { data, error, loading } = useFetch([
-    {
-      url: "http://localhost:8080/getartistscollage",
-      params: {
-        rows: 3,
-        cols: 3,
-        size: 300,
-        random: true,
-      },
-      responseType: "JPEG",
-    },
-    {
-      url: "http://localhost:8080/getalbumscollage",
-      params: {
-        rows: 3,
-        cols: 9,
-        size: 300,
-        random: true,
-      },
-      responseType: "JPEG",
-    },
-    {
-      url: "http://localhost:8080/getartistscollage",
-      params: {
-        rows: 3,
-        cols: 9,
-        size: 300,
-        random: true,
-      },
-      responseType: "JPEG",
-    },
-    {
-      url: "http://localhost:8080/getalbumscollage",
-      params: {
-        rows: 3,
-        cols: 3,
-        size: 300,
-        random: true,
-      },
-      responseType: "JPEG",
-    },
-  ]);
+  const { data, error, loading } = useFetch(req);
   if (error) {
     console.log(error);
   }

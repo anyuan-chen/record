@@ -27,17 +27,9 @@ const useFetch = (requests) => {
     (async function () {
       try {
         setLoading(true);
-        // for (const request of requests) {
-        //   let response = await axios.get(request.url, {
-        //     responseType: determineResponseType(request),
-        //     withCredentials: true,
-        //     params: request.params,
-        //   });
-        //   response = await processResponse(request, response);
-        //   setData([...data, response]);
-        // }
+        const responseCpy = [...requests]
         const responses = await Promise.all(
-          requests.map((request) =>
+          responseCpy.map((request) =>
             axios
               .get(request.url, {
                 responseType: determineResponseType(request),
@@ -50,15 +42,15 @@ const useFetch = (requests) => {
               })
           )
         );
-
         setData(responses);
+        setError(false)
       } catch (err) {
         setError(err);
       } finally {
         setLoading(false);
       }
     })();
-  }, []);
+  }, [requests]);
   return { data, error, loading };
 };
 export default useFetch;
